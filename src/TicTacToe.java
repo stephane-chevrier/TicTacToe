@@ -1,6 +1,5 @@
 import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class TicTacToe {
     // initialisation des constantes
@@ -9,11 +8,10 @@ public class TicTacToe {
 
     // initialisation du damier (tableau 2 dimensions de l'objet cellule)
     public Cell[][] damier = new Cell[size+1][size+1];
-    public int[] calculX = new int[size+2];
-    public int[] calculY = new int[size+2];
+    public int[] calcul = new int[(size+1)*3];
 
-    public Player joueur1 = new Player();
-    public Player joueur2 = new Player();
+    public Player joueur1 = new Player("Toto", Player.caseJoueur1);
+    public Player joueur2 = new Player("Lulu", Player.caseJoueur2);
 
     // nombre de coups joués
     private int nombreCoupsJoues = 0;
@@ -29,18 +27,15 @@ public class TicTacToe {
         for (int i=0;i<=size;i++) {
             for (int j=0;j<=size;j++) {
                 damier[i][j] = new Cell();
-                // damier[i][j].value = 0; --> inutile car .value définie à 0 par défaut
+                // damier[i][j].value = 0; --> inutile car .value définie à 0 par défaut --> mieux !
             }
         }
-        // initialisation des joueurs
-        joueur1.value = Player.caseJoueur1;
-        joueur2.value = Player.caseJoueur2;
-        joueur1.name = "Toto";
-        joueur2.name = "Lulu";
     }
     // Méthode d'affichage du damier
     void display() {
-        System.out.println();
+        // System.out.println();
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         // Afichage de l'axe des x
         System.out.println(Cell.LineIndex);
         System.out.println(Cell.lineSeparator);
@@ -69,8 +64,8 @@ public class TicTacToe {
         System.out.println();
     }
     // vérifie que la saisie contient X.Y
-    Boolean verifFormatSaisie(String saisieVal) {
-        if (saisieVal.matches("[0-9].[0-9]+")) {
+    boolean verifFormatSaisie(String saisieVal) {
+        if (saisieVal.matches("[0-9].[0-9]")) {
             return true;
         } else {
             // message format saisie incorrect
@@ -78,8 +73,9 @@ public class TicTacToe {
             return false;
         }
     }
+
     // vérifie que les coordonnées saisies sont entre 0 et size
-    Boolean verifValeurSaisie(int i, int j) {
+    boolean verifValeurSaisie(int i, int j) {
         if (i >= 0 && i <= size && j >= 0 && j <= size) {
             return true;
         } else {
@@ -89,7 +85,7 @@ public class TicTacToe {
         }
     }
     // vérifie que la case n’est pas occupée
-    Boolean verifCaseOccupee(int i, int j) {
+    boolean verifCaseOccupee(int i, int j) {
         if (damier[i][j].value == 0) {
             return true;
         } else {
@@ -136,53 +132,32 @@ public class TicTacToe {
         damier[coord.get(0)][coord.get(1)].value = joueur;
     }
     // méthode de calcul des sommes de chaque alignement, des minimum et maximum de ces sommes, du nombre de coups joués
-        void situationCalcul() {
-        // RAZ du nombre de coups joués
+    void situationCalcul() {
+
+        // RAZ du tableau de calcul des sommes et du nombre de coups joués
         nombreCoupsJoues = 0;
-        // Calcul de la somme de chaque alignement dans calculX et calculY
-        // La somme des diagonales est stockée dans calculX[size+1] et calculY[size+1]
-        // RAZ de la somme des diagonales
-        calculX[size+1] = 0;
-        calculY[size+1] = 0;
-        // 1ère boucle de balayage
-        for (int i=0;i<=size;i++) {
-            // Raz de la 1ère série de sommes
-            calculX[i] = 0;
-            calculY[i] = 0;
-            // calcul de la somme des diagonales
-            calculX[size + 1] += damier[i][i].value;
-            calculY[size + 1] += damier[size - i][i].value;
-            // 2ème boucle de balayage des lignes
+        for (int i = 0; i <= calcul.length - 1; i++) {
+            calcul[i] = 0;
+        }
+        // Double boucle de calcul des 8 sommes (3 lignes, 3 colonnes, 2 diagonales)
+        for (int i = 0; i <= size; i++) {
+            calcul[7] += damier[i][i].value;      // somme de la diagonale 0.0+1.1+2.2 dans index 7
+            calcul[8] += damier[i][size - i].value; // somme de la diagonale 0.2+1.1+2.0 dans index 7
             for (int j = 0; j <= size; j++) {
-                // calcul de la 2ème série de somme
-                calculX[i] += damier[i][j].value;
-                calculY[i] += damier[j][i].value;
-                // calcul du nombre coups joués
-                if (damier[i][j].value != Player.caseVide ) {
+                calcul[j] += damier[i][j].value;   // somme des lignes 0-1-2 dans index 0-1-2
+                calcul[j + 3] += damier[j][i].value; // somme des colonnes 0-1-2 dans index 3-4-5
+                // Calcul du nombre de coups joués
+                if (damier[i][j].value != Player.caseVide) {
                     nombreCoupsJoues++;
                 }
             }
         }
         // calcul des maximum et minimum des 2 tableaux calculX et calculY qui contiennent la somme de chaque alignement
-        minimum = 0;
-        maximum = 0;
-        for (int i=0;i<=size;i++) {
-            if (calculX[i]<minimum) {
-                minimum = calculX[i];
-            }
-            if (calculY[i]<minimum) {
-                minimum = calculX[i];
-                }
-            if (calculX[i]>maximum) {
-                maximum = calculX[i];
-            }
-            if (calculY[i]>maximum) {
-                maximum = calculX[i];
-            }
-        }
+        minimum = Arrays.stream(calcul).min().getAsInt();
+        maximum = Arrays.stream(calcul).max().getAsInt();
     }
     // Méthode de calcul de fin de partie : soit un joueur a gagné, soit il n'y a plus de coups à jouer
-        Boolean isOver() {
+    boolean isOver() {
         // Par défaut la partie n'est pas finie
         Boolean retour = false;
         // calcul des sommes de chaque alignement et du nombre de coups joués
@@ -210,6 +185,7 @@ public class TicTacToe {
         // 1er joueur à jouer
         String joueur = joueur1.name;
         // boucle d'enchainement des coups
+        Player activePlayer = this.joueur1;
         do {
             display();
             // si le précédent joueur était joueur2, le joueur1 joue
@@ -222,7 +198,7 @@ public class TicTacToe {
                 joueur = joueur1.name;
             }
         }
-        // répéition de la boucle tant que la partie n'est pas finie
+        // répétition de la boucle tant que la partie n'est pas finie
         while (isOver()==false);
     }
 }
