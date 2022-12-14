@@ -183,19 +183,16 @@ public class TicTacToe {
     void play () {
         initialiser();
         // 1er joueur à jouer
-        String joueur = joueur1.name;
-        // boucle d'enchainement des coups
         Player activePlayer = this.joueur1;
+        // boucle d'enchainement des coups
         do {
             display();
-            // si le précédent joueur était joueur2, le joueur1 joue
-            if (joueur == joueur1.name) {
-                setOwner(joueur1.value, getMoveFromPlayer(joueur1.name));
-                joueur =joueur2.name;
+            setOwner(activePlayer.value, getMoveFromPlayer(activePlayer.name));
+            // Permute alternativement les joueurs
+            if (activePlayer.name == joueur1.name) {
+                activePlayer = joueur2;
             } else {
-                // sinon le joueur2 joue
-                setOwner(joueur2.value, getMoveFromPlayer(joueur2.name));
-                joueur = joueur1.name;
+                activePlayer= joueur1;
             }
         }
         // répétition de la boucle tant que la partie n'est pas finie
