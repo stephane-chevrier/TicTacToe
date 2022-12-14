@@ -1,27 +1,29 @@
 public class Cell {
-    // Création variable d'instance .value
+    // Initialisation des constantes propres à la Class cell
     static final String bordureSeparator = "|";
-    static final String lineSeparator = "-|------------";
-    static final String LineIndex = " |-0-|-1-|-2-|->X ";
-    static final String representationVide = bordureSeparator+"   ";
-    static final String representationJoueur1 = bordureSeparator+" X ";
-    static final String representationJoueur2 = bordureSeparator+" O ";
-    int value;
+    static final String carSeparator = "-";
+    static final String lineSeparator = carSeparator+bordureSeparator+carSeparator.repeat(12);
+    static final String LineIndex = bordureSeparator+carSeparator+"0" +
+                                    carSeparator+bordureSeparator+carSeparator+"1"+
+                                    carSeparator+bordureSeparator+carSeparator+"2"+
+                                    carSeparator+bordureSeparator+carSeparator+">X";
+    // Initialisation JoueurVide pour valeur par défaut des objets Cell
+//    private Player joueurVide = new Player(" ", Player.caseVide, Player.representationVide);
+
+    // création variable d'instance de Cell
+    public Player joueur;
+
+    // constructeur de Cell()
     public Cell() {
-        this.value=0;
+        this.joueur = new Player(" ", Player.caseVide, Player.representationVide);
     }
 
-    // représentation de le l'objet en fonction de sa valeur
+    // représentation de la cellule à partir des représentations de joueurs : | XouOou""
     public String getRepresentation() {
-        if (this.value == Player.caseVide ) {
-            return representationVide;
-        }
-        if (this.value == Player.caseJoueur1) {
-            return representationJoueur1;
-        }
-        if (this.value == Player.caseJoueur2) {
-            return representationJoueur2;
-        }
-        return "";
+        return bordureSeparator + " " + joueur.representation + " ";
+    }
+    // récupération de la valeur de la cellule en fonction du joueur de la cellule
+    public int getValue() {
+        return joueur.value;
     }
 }
