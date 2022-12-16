@@ -3,19 +3,17 @@ public class Cell {
     static final String bordureSeparator = "|";
     static final String carSeparator = "-";
     static final String lineSeparator = carSeparator+bordureSeparator+carSeparator.repeat(12);
-    static final String LineIndex = bordureSeparator+carSeparator+"0" +
-                                    carSeparator+bordureSeparator+carSeparator+"1"+
-                                    carSeparator+bordureSeparator+carSeparator+"2"+
+    static final String LineIndex = carSeparator+bordureSeparator+carSeparator+"0" +
+                                    carSeparator+bordureSeparator+carSeparator+"1" +
+                                    carSeparator+bordureSeparator+carSeparator+"2" +
                                     carSeparator+bordureSeparator+carSeparator+">X";
-    // Initialisation JoueurVide pour valeur par défaut des objets Cell
-//    private Player joueurVide = new Player(" ", Player.caseVide, Player.representationVide);
 
     // création variable d'instance de Cell
     public Player joueur;
 
     // constructeur de Cell()
     public Cell() {
-        this.joueur = new Player(" ", Player.caseVide, Player.representationVide);
+        this.joueur = new HumanPlayer(" ", Player.caseValue[0], Player.representationJoueur[0]);
     }
 
     // représentation de la cellule à partir des représentations de joueurs : | XouOou""
