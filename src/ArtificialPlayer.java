@@ -4,8 +4,8 @@ import java.util.Random;
 public class ArtificialPlayer extends Player {
 
     // constructeur de la Class ArtificialPlayer
-    public ArtificialPlayer(String name, int value, String representation) {
-        super(name, value, representation);
+    public ArtificialPlayer(String name, int value, String representation, String couleur) {
+        super(name, value, representation, couleur);
     }
 
     // Fonction de choix aléatoire de coordonnées + vérification + renvoie les coordonnées
