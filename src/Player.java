@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public abstract class Player {
 
@@ -48,7 +47,7 @@ public abstract class Player {
     }
 
     // sortie du prgramme si saisie exit
-    public void exitProg (String saisie) {
+    public void checkExitProg(String saisie) {
         if (saisie.toLowerCase().equals("exit")) {
             System.out.println("Fin du programme demandé par le joueur.");
             System.exit(0);

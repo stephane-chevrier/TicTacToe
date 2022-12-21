@@ -20,7 +20,7 @@ public class HumanPlayer extends Player {
             System.out.print("Joueur " + this.couleur + this.name + couleurDefaut + ",saisissez votre choix sous la forme Y.X (exit pour sortir du jeu): ");
             String saisie = clavier.nextLine();
             // sortie du programme si saisie exit
-            exitProg(saisie);
+            checkExitProg(saisie);
             // vérifie que la saisie contient X.Y
             if (verifFormatSaisie(saisie)) {
                 double saisieDbl = Double.valueOf(saisie);

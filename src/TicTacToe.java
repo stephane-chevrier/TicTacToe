@@ -2,11 +2,11 @@ import java.util.*;
 
 public class TicTacToe {
     // initialisation des constantes
-    public static final int size = 2;  // =n défini un plateau de n+1 * n+1 cellules
+    static final int size = 2;  // =n défini un plateau de n+1 * n+1 cellules
 
     // initialisation du damier (tableau 2 dimensions de l'objet cellule) et du tableau Calcul = Somme des alignements
     private Cell[][] damier;
-    private Player player;
+    private Viewer viewer = new Viewer();
 
     // initialisation des joueurs,
     private ArrayList<Player> joueur = new ArrayList<>(2);
@@ -17,7 +17,7 @@ public class TicTacToe {
     }
 
     // Méthode d'initialisation du damier
-    Cell[][] initialiserDamier() {
+    private Cell[][] initialiserDamier() {
         Cell[][] cells = new Cell[size+1][size+1];
         // initialisation du damier
         for (int i=0;i<=size;i++) {
@@ -29,44 +29,12 @@ public class TicTacToe {
         return cells;
     }
 
-    // Méthode pour effacer la console terminal de windows
-    private void displayEffacer() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
-    // Méthode d'affichage du damier
-    private void display() {
-        // effacement du terminal Windows
-        displayEffacer();
-        // Affichage de l'axe des x
-        System.out.println(Cell.LineUp);
-        System.out.println(Cell.LineIndex);
-        System.out.println(Cell.LineMid);
-        // boucle de balayage de lignes
-        for (int i = 0; i <= size; i++) {
-            // affichage du n° de ligne
-            System.out.print(Cell.col+" "+i+" ");
-            // boucle de balayage des colonnes
-            for (int j = 0; j <= size; j++) {
-                System.out.print(damier[i][j].getRepresentation());
-            }
-            // Affichage de la bordure de droite et de la ligne de séparation des lignes
-            System.out.println(Cell.col);
-            if (i<size) {
-                System.out.println(Cell.LineMid);
-            }
-        }
-        // affichage de l'axe des Y
-//        System.out.println(Cell.col);
-//        System.out.println("Y");
-        System.out.println(Cell.LineDown);
-        System.out.println();
-    }
-    // execution du coup d'un joueur
-
     private void setOwner (Player joueur,  ArrayList<Integer> coord) {
         damier[coord.get(0)][coord.get(1)].joueur = joueur;
+    }
+
+    private void saisieCoupvalide() {
+
     }
 
     // méthode de calcul des sommes de chaque alignement, des minimum et maximum de ces sommes, du nombre de coups joués
@@ -103,13 +71,14 @@ public class TicTacToe {
 
     // vérifie que la case n’est pas occupée
     private boolean verifCaseLibre(ArrayList<Integer> coup, String name) {
-        System.out.print("coup "+coup.get(0)+"-"+coup.get(1)+" joué par "+name);
+        String message = "coup "+coup.get(0)+"-"+coup.get(1)+" joué par "+name;
         if (damier[coup.get(0)][coup.get(1)].getValue() == 0) {
-            System.out.println();
+            System.out.println(message);
             return true;
         } else {
             // message case déjà occupée
-            System.out.println(" , la case est déjà occupée.");
+            if (!name.startsWith("Random"))
+            System.out.println(message+" , la case est déjà occupée.");
             return false;
         }
     }
@@ -179,7 +148,7 @@ public class TicTacToe {
         Player activePlayer = joueur.get((int)(Math.random()+1));
         // boucle d'enchainement des coups
         do {
-            display();
+            viewer.display(damier);
             // boucle de saisie du coup tant que la case choisie n'est pas vide
             do {
                 coup = activePlayer.getMoveFromPlayer();
@@ -190,6 +159,6 @@ public class TicTacToe {
             activePlayer = (activePlayer.name == joueur.get(2).name) ? joueur.get(1) : joueur.get(2);
         } while (!isOver()); // répétition de la boucle tant que la partie n'est pas finie
         // Affichage du damier final
-        display();
+        viewer.display(damier);
     }
 }
