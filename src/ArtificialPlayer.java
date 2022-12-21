@@ -16,8 +16,8 @@ public class ArtificialPlayer extends Player {
         // Création instance aleatoire de Random()
         Random aleatoire = new Random();
        // Initialisation de la liste retour avec un entier aléatoire entre 0 et 2
-        retour.add(aleatoire.nextInt(3));
-        retour.add(aleatoire.nextInt(3));
+        retour.add(aleatoire.nextInt(TicTacToe.size+1));
+        retour.add(aleatoire.nextInt(TicTacToe.size+1));
         // Return de la liste retour
         return retour;
     }

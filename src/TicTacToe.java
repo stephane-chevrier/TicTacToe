@@ -2,39 +2,16 @@ import java.util.*;
 
 public class TicTacToe {
     // initialisation des constantes
-    static final int size = 2;  // =n défini un plateau de n+1 * n+1 cellules
+//    private int size = 15;  // =n défini un plateau de n+1 * n+1 cellules pour le jeu TicTacToe
 
-    // initialisation du damier (tableau 2 dimensions de l'objet cellule) et du tableau Calcul = Somme des alignements
-    private Cell[][] damier;
     private Viewer viewer = new Viewer();
+    private Damier damier = new Damier(15);
 
     // initialisation des joueurs,
     private ArrayList<Player> joueur = new ArrayList<>(2);
 
     // Constructeur de la Class TicTacToe
     public TicTacToe() {
-        this.damier = initialiserDamier();
-    }
-
-    // Méthode d'initialisation du damier
-    private Cell[][] initialiserDamier() {
-        Cell[][] cells = new Cell[size+1][size+1];
-        // initialisation du damier
-        for (int i=0;i<=size;i++) {
-            for (int j=0;j<=size;j++) {
-                cells[i][j] = new Cell();
-            }
-        }
-        // retour du damier
-        return cells;
-    }
-
-    private void setOwner (Player joueur,  ArrayList<Integer> coord) {
-        damier[coord.get(0)][coord.get(1)].joueur = joueur;
-    }
-
-    private void saisieCoupvalide() {
-
     }
 
     // méthode de calcul des sommes de chaque alignement, des minimum et maximum de ces sommes, du nombre de coups joués
@@ -43,19 +20,21 @@ public class TicTacToe {
         ArrayList<Integer> retour = new ArrayList<>(3);
         // RAZ du tableau de calcul des sommes et du nombre de coups joués
         int nombreCoupsJoues = 0;
-        int[] calcul = new int[(size+1)*3];
+        int[] calcul = new int[(damier.size+1)*3];
+        // Copie locale du plateau
+        Cell[][] plateau = damier.getPlateau();
         for (int i = 0; i <= calcul.length - 1; i++) {
             calcul[i] = 0;
         }
         // Double boucle de calcul des 8 sommes (3 lignes, 3 colonnes, 2 diagonales)
-        for (int i = 0; i <= size; i++) {
-            calcul[7] += damier[i][i].getValue();      // somme de la diagonale 0.0+1.1+2.2 dans index 7
-            calcul[8] += damier[i][size - i].getValue(); // somme de la diagonale 0.2+1.1+2.0 dans index 8
-            for (int j = 0; j <= size; j++) {
-                calcul[j] += damier[i][j].getValue();   // somme des lignes 0-1-2 dans index 0-1-2
-                calcul[j + 3] += damier[j][i].getValue(); // somme des colonnes 0-1-2 dans index 3-4-5
+        for (int i = 0; i <= damier.size; i++) {
+            calcul[7] += plateau[i][i].getValue();      // somme de la diagonale 0.0+1.1+2.2 dans index 7
+            calcul[8] += plateau[i][damier.size - i].getValue(); // somme de la diagonale 0.2+1.1+2.0 dans index 8
+            for (int j = 0; j <= damier.size; j++) {
+                calcul[j] += plateau[i][j].getValue();   // somme des lignes 0-1-2 dans index 0-1-2
+                calcul[j + 3] += plateau[j][i].getValue(); // somme des colonnes 0-1-2 dans index 3-4-5
                 // Calcul du nombre de coups joués
-                if (damier[i][j].getValue() != Player.caseValue[0]) {
+                if (plateau[i][j].getValue() != Player.caseValue[0]) {
                     nombreCoupsJoues++;
                 }
             }
@@ -69,19 +48,7 @@ public class TicTacToe {
         return retour;
     }
 
-    // vérifie que la case n’est pas occupée
-    private boolean verifCaseLibre(ArrayList<Integer> coup, String name) {
-        String message = "coup "+coup.get(0)+"-"+coup.get(1)+" joué par "+name;
-        if (damier[coup.get(0)][coup.get(1)].getValue() == 0) {
-            System.out.println(message);
-            return true;
-        } else {
-            // message case déjà occupée
-            if (!name.startsWith("Random"))
-            System.out.println(message+" , la case est déjà occupée.");
-            return false;
-        }
-    }
+
 
     // Méthode de calcul de fin de partie : soit un joueur a gagné, soit il n'y a plus de coups à jouer
     private boolean isOver() {
