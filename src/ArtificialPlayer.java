@@ -10,14 +10,14 @@ public class ArtificialPlayer extends Player {
 
     // Fonction de choix aléatoire de coordonnées + vérification + renvoie les coordonnées
     @Override
-    ArrayList<Integer> getMoveFromPlayer() {
+    ArrayList<Integer> getMoveFromPlayer(int size) {
         // Initialisation des variables locales
         ArrayList<Integer> retour = new ArrayList<Integer>(2);
         // Création instance aleatoire de Random()
         Random aleatoire = new Random();
        // Initialisation de la liste retour avec un entier aléatoire entre 0 et 2
-        retour.add(aleatoire.nextInt(TicTacToe.size+1));
-        retour.add(aleatoire.nextInt(TicTacToe.size+1));
+        retour.add(aleatoire.nextInt(size+1));
+        retour.add(aleatoire.nextInt(size+1));
         // Return de la liste retour
         return retour;
     }

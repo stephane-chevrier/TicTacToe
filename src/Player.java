@@ -1,14 +1,20 @@
 import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.Map;
 
 public abstract class Player {
 
-    // Initialisation constantes static
-    static final String couleurRouge = "\u001B[31m";
-    static final String couleurBleue = "\u001B[34m";
-    static final String couleurDefaut = "\u001B[0m";
-    static final String[] caseCouleur = {couleurDefaut,couleurBleue,couleurRouge};
-    static final int[] caseValue = {0,1,-1}; // tableau de valeurs des cases vides, joueur n°1 (int>=1), joueur n°2 (int<=-1)
-    static final String[] representationJoueur = {" ",couleurBleue+"X"+couleurDefaut,couleurRouge+"O"+couleurDefaut}; // tableau des représentations des cases vide, du joueur n°1, du joueur n°2
+    // Définition des séquences pour chaque couleur souhaitée
+    private static final Map<String,String> couleurDef = Map.of(
+            "rouge", "\u001B[31m",
+            "bleue", "\u001B[34m",
+            "defaut", "\u001B[0m"
+    );
+
+    // définition des constantes pour les cases : couleur, valeur, représentation
+    public static final String[] caseCouleur = {couleurDef.get("defaut"), couleurDef.get("bleue"), couleurDef.get("rouge")};
+    public static final int[] caseValue = {0,1,-1}; // tableau de valeurs des cases vides, joueur n°1 (int>=1), joueur n°2 (int<=-1)
+    public static final String[] representationJoueur = {" ","X","O"}; // tableau des représentations des cases vide, du joueur n°1, du joueur n°2
 
     // Initialisation variables d'instance
     public int value;
@@ -24,27 +30,9 @@ public abstract class Player {
         this.couleur = couleur;
     }
 
-    // vérifie que la saisie contient X.Y
-    protected boolean verifFormatSaisie(String saisieVal) {
-        if (saisieVal.matches("[0-9].[0-9]")) {
-            return true;
-        } else {
-            // message format saisie incorrect
-            System.out.println("votre saisie ne correspond pas au format demandé, recommencez.");
-            return false;
-        }
-    }
+    // Fonction de saisie de coordonnées + vérification + renvoie les coordonnées
+    abstract ArrayList<Integer> getMoveFromPlayer (int size);
 
-    // vérifie que les coordonnées saisies sont entre 0 et size
-    public boolean verifValeurSaisie(int i, int j) {
-        if (i >= 0 && i <= TicTacToe.size && j >= 0 && j <= TicTacToe.size) {
-            return true;
-        } else {
-            // message valeurs saisies incorrectes
-            System.out.println("y et x doivent être compris entre 0 et " + TicTacToe.size + ", recommencez.");
-            return false;
-        }
-    }
 
     // sortie du prgramme si saisie exit
     public void checkExitProg(String saisie) {
@@ -53,8 +41,4 @@ public abstract class Player {
             System.exit(0);
         }
     }
-
-    // Fonction de saisie de coordonnées + vérification + renvoie les coordonnées
-    abstract ArrayList<Integer> getMoveFromPlayer ();
-
 }
