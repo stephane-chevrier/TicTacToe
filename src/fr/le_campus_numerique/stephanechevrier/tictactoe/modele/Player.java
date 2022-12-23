@@ -1,28 +1,30 @@
+package fr.le_campus_numerique.stephanechevrier.tictactoe.modele;
+
+import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.Viewer;
+
 import java.util.ArrayList;
 import java.util.Map;
 
-public abstract class modele_Player {
+public abstract class Player {
 
     // Définition des séquences pour chaque couleur souhaitée
-    private static final Map<String,String> couleurDef = Map.of(
-            "rouge", "\u001B[31m",
-            "bleue", "\u001B[34m",
-            "defaut", "\u001B[0m"
-    );
+
 
     // définition des constantes pour les cases : couleur, valeur, représentation
-    public static final String[] caseCouleur = {couleurDef.get("defaut"), couleurDef.get("bleue"), couleurDef.get("rouge")};
+    public static final String[] caseCouleur = {Viewer.couleurDef.get("defaut"), Viewer.couleurDef.get("bleue"), Viewer.couleurDef.get("jaune")};
     public static final int[] caseValue = {0,1,-1}; // tableau de valeurs des cases vides, joueur n°1 (int>=1), joueur n°2 (int<=-1)
     public static final String[] representationJoueur = {" ","X","O"}; // tableau des représentations des cases vide, du joueur n°1, du joueur n°2
 
     // Initialisation variables d'instance
+    public int indexCouleur;
     public int value;
     public String name;
     public String representation;
     public String couleur;
 
-    // constructeur de la Class Player
-    public modele_Player(String name, int value, String representation, String couleur) {
+    // constructeur de la Class fr.le_campus_numerique.stephanechevrier.tictactoe.modele.Player
+    public Player(String name, int value, String representation, String couleur, int indexCouleur) {
+        this.indexCouleur = indexCouleur;
         this.name = name;
         this.value = value;
         this.representation = representation;
@@ -30,8 +32,7 @@ public abstract class modele_Player {
     }
 
     // Fonction de saisie de coordonnées + vérification + renvoie les coordonnées
-    abstract ArrayList<Integer> getMoveFromPlayer (int size);
-
+    public abstract ArrayList<Integer> getMoveFromPlayer (int size, int index);
 
     // sortie du prgramme si saisie exit
     public void checkExitProg(String saisie) {

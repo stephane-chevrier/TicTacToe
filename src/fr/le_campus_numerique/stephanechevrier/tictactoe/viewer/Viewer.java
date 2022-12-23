@@ -1,21 +1,45 @@
+package fr.le_campus_numerique.stephanechevrier.tictactoe.viewer;
+
 /*
 Nom:            Viewer
 Description :   Viewer jeu TicTacToe (MVC)
-@ersion         v1.0
+@version         1.0
 Date :          23 décembre 2022
 @author         Stéphane CHEVRIER
  */
 
+import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.Cell;
+import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.Player;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Viewer {
 
+    public static final Map<String,String> couleurDef = Map.of(
+            "rouge", "\u001B[31m",
+            "bleue", "\u001B[34m",
+            "defaut", "\u001B[0m",
+            "jaune", "\u001B[33m"
+    );
+
     /*
     Initialisation des messages affichés à l'écran
-    @C:insère la couleur du joueur,  @D:insère la couleur par défaut, @i:insère l'index
+    @C:insère la couleur du joueur,  @D:insère la couleur par défaut, @i:insère l'index, @E insère la couleur des messages d'erreur
      */
-    public final String messageSaisieNom1 = "Saisissez le nom du @Cjoueur n°@i@D (Random pour joueur aléatoire) : ";
+    public final String messageSaisieNom1 = "@DSaisissez le nom du @Cjoueur n°@i@D (Random pour joueur aléatoire) : ";
+    public final String messageCoupJoue1 = "@Dcoup ";
+    public final String messageCoupJoue2 = " joué par @C";
+
+    public final String messagePartieTerminee = "@Dpartie terminée";
+    public final String messageleJoueur = ", le joueur @C";
+    public final String messageAGagne = "@D a gagné !!!";
+    public final String messageEgalite = ", égalité.";
+
+    public final String messageJoueur = "@DJoueur @C";
+    public final String messageSaisissezCoup = "@D ,saisissez votre choix sous la forme Y.X (exit pour sortir du jeu): ";
+    public final String messageCase = "@D@ECase ";
+    public final String messageCaseOccupee = " déjà occupée, recommencez.";
+
 
     // Initialisation des constantes de représentation du damier
     static final String coinHG = "┌";
@@ -29,7 +53,7 @@ public class Viewer {
     static final String interB = "┴";
     static final String inter = "┼";
     static final String ligne = "─";
-    static final String col = "│";
+    public static final String col = "│";
     private Map<Integer, String> index = new HashMap<>();
 
     /*
@@ -68,7 +92,7 @@ public class Viewer {
     private String setMotifs(String coin1, String milieu, String inter, String coin2, int size) {
 
         // initialisation de la variable de sortie
-        String sortie = coin1;
+        String sortie = "@D"+coin1;
 
         // boucle sur le nombre de cases -1 du damier
         for (int i = 0; i < size; i++) {
@@ -85,14 +109,16 @@ public class Viewer {
     /*
     Méthode d'affichage du damier
      */
-    public void display(modele_Cell[][] cell) {
+//    public void display(Cell[][] cell) {
+    public void display(Cell[][] cell) {
 
         // initialisation des variables locales
         int size = cell.length;
+//        int size = cellRepr.length;
         String LineIndex = setIndex(size, col);
 
         // effacement du terminal
-        displayEffacer();
+//        displayEffacer();
 
         // création des 3 types de lignes d'affichage
         String LineUp = setMotifs(coinHG, ligne, interH, coinHD,size);
@@ -100,38 +126,41 @@ public class Viewer {
         String LineMid = setMotifs(interG, ligne, inter, interD, size);
 
         // Affichage de l'index de l'axe des x
-        System.out.println(LineUp);
-        System.out.println(LineIndex);
-        System.out.println(LineMid);
+        afficherEcran(LineUp,0,true);
+        afficherEcran(LineIndex, 0, true);
+        afficherEcran(LineMid, 0, true);
 
         // boucle de balayage de lignes
         for (int i = 0; i <= size-1; i++) {
 
             // affichage du n° de ligne
-            System.out.print(Viewer.col + " " + index.get(i) + " ");
+            afficherEcran(Viewer.col + " " + index.get(i) + " ", 0, false);
 
             // boucle de balayage des colonnes
             for (int j = 0; j <= size-1; j++) {
-                System.out.print(cell[i][j].getRepresentation());
+                afficherEcran(cell[i][j].getRepresentation(col), 0, false);
+//                afficherEcran(cellRepr[i][j], 0, false);
             }
             // Affichage de la bordure de droite et de la ligne de séparation des lignes
-            System.out.println(Viewer.col);
+            afficherEcran(Viewer.col, 0, true);
             if (i < size-1) {
-                System.out.println(LineMid);
+                afficherEcran(LineMid, 0 , true);
             }
         }
         // affichage de la dernière ligne du damier
-        System.out.println(LineDown);
-        System.out.println();
+        afficherEcran(LineDown, 0, true);
+        afficherEcran("", 0, true);
     }
 
     /*
-     Méthode pour effacer la console terminal de windows
-     NON IMPLEMENTEE
+     Méthode pour effacer la console
      */
-    private void displayEffacer() {
-//        System.out.print("\033[H\033[2J");
-//        System.out.flush();
+    public void displayEffacer() {
+
+        // boucle de 5 lignes vides avec couleur par défaut
+        for (int i=0; i<=5; i++) {
+            afficherEcran("@D", 0, true);
+        }
     }
 
     /*
@@ -146,8 +175,9 @@ public class Viewer {
         convertTexte = convertTexte.valueOf(i);
 
         // Remplacement des codes @x par leur séquence
-        texte = texte.replaceAll("@C", modele_Player.caseCouleur[i]);
-        texte = texte.replaceAll("@D", modele_Player.caseCouleur[0]);
+        texte = texte.replaceAll("@C", Player.caseCouleur[i]);
+        texte = texte.replaceAll("@D", Player.caseCouleur[0]);
+        texte = texte.replaceAll("@E", couleurDef.get("rouge"));
         texte = texte.replaceAll("@i",convertTexte);
 
         // Affichage du texte

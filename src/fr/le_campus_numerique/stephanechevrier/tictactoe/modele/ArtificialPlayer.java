@@ -1,16 +1,18 @@
+package fr.le_campus_numerique.stephanechevrier.tictactoe.modele;
+
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ArtificialPlayer extends modele_Player {
+public class ArtificialPlayer extends Player {
 
     // constructeur de la Class ArtificialPlayer
-    public ArtificialPlayer(String name, int value, String representation, String couleur) {
-        super(name, value, representation, couleur);
+    public ArtificialPlayer(String name, int value, String representation, String couleur, int indexCouleur) {
+        super(name, value, representation, couleur, indexCouleur);
     }
 
     // Fonction de choix aléatoire de coordonnées + vérification + renvoie les coordonnées
     @Override
-    ArrayList<Integer> getMoveFromPlayer(int size) {
+    public ArrayList<Integer> getMoveFromPlayer(int size, int index) {
         // Initialisation des variables locales
         ArrayList<Integer> retour = new ArrayList<Integer>(2);
         // Création instance aleatoire de Random()
