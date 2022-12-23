@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class HumanPlayer extends Player {
+public class HumanPlayer extends modele_Player {
 
     // constructeur de la Class ArtificialPlayer
     public HumanPlayer(String name, int value, String representation, String couleur) {
@@ -39,7 +39,7 @@ public class HumanPlayer extends Player {
         boolean saisieNonOk = true;
         // Boucle faite tant que la saisie n'est pas correcte
         do {
-            System.out.print("Joueur " + this.couleur + this.name + Player.caseCouleur[0] + ",saisissez votre choix sous la forme Y.X (exit pour sortir du jeu): ");
+            System.out.print("Joueur " + this.couleur + this.name + modele_Player.caseCouleur[0] + ",saisissez votre choix sous la forme Y.X (exit pour sortir du jeu): ");
             String saisie = clavier.nextLine();
             // sortie du programme si saisie exit
             checkExitProg(saisie);

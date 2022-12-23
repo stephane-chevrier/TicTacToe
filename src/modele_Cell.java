@@ -1,20 +1,17 @@
-import java.util.HashMap;
-import java.util.Map;
-
-public class Cell {
+public class modele_Cell {
 
 
     // création variable d'instance de Cell
-    public Player joueur;
+    public modele_Player joueur;
 
     // constructeur de Cell()
-    public Cell() {
-        this.joueur = new HumanPlayer(" ", Player.caseValue[0], Player.representationJoueur[0], Player.caseCouleur[0]);
+    public modele_Cell() {
+        this.joueur = new HumanPlayer(" ", modele_Player.caseValue[0], modele_Player.representationJoueur[0], modele_Player.caseCouleur[0]);
     }
 
     // représentation de la cellule à partir des repré+entations de joueurs : | XouOou""
     public String getRepresentation() {
-        return Viewer.col + " " + joueur.couleur + joueur.representation + Player.caseCouleur[0] + " ";
+        return Viewer.col + " " + joueur.couleur + joueur.representation + modele_Player.caseCouleur[0] + " ";
     }
 
     // récupération de la valeur de la cellule en fonction du joueur de la cellule

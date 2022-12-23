@@ -1,8 +1,7 @@
 import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.Map;
 
-public abstract class Player {
+public abstract class modele_Player {
 
     // Définition des séquences pour chaque couleur souhaitée
     private static final Map<String,String> couleurDef = Map.of(
@@ -23,7 +22,7 @@ public abstract class Player {
     public String couleur;
 
     // constructeur de la Class Player
-    public Player(String name, int value, String representation, String couleur) {
+    public modele_Player(String name, int value, String representation, String couleur) {
         this.name = name;
         this.value = value;
         this.representation = representation;

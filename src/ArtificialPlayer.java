@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ArtificialPlayer extends Player {
+public class ArtificialPlayer extends modele_Player {
 
     // constructeur de la Class ArtificialPlayer
     public ArtificialPlayer(String name, int value, String representation, String couleur) {
