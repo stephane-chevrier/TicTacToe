@@ -13,7 +13,7 @@ import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.Input;
 import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.Damier;
 import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.Player;
 import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.HumanPlayer;
-import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.ArtificialPlayer;
+import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.RandomPlayer;
 import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.Cell;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,21 +22,19 @@ public class TicTacToe {
 
     /* initialisation de la taille du plateau */
     /* =n défini un plateau de n+1 * n+1 cellules pour le jeu TicTacToe */
-    private int size = 2;
+    private int size = 12;
 
-    /* initialisation des objets Class Viewer et Damier */
-    private Viewer viewer = new Viewer();
+    /* initialisation des objets Class Viewer, Damier et Input */
+    private final Viewer viewer = new Viewer();
 
-    private Damier damier = new Damier(size);
+    private final Damier damier = new Damier(size);
 
-    private Input input = new Input();
+    private final Input input = new Input();
 
     /* initialisation des joueurs */
-    private ArrayList<Player> joueur = new ArrayList<>(2);
+    private final ArrayList<Player> joueur = new ArrayList<>(3);
 
-    /*
-    Constructeur de la Class TicTacToe
-     */
+    /* Constructeur de la Class TicTacToe */
     public TicTacToe() {
     }
 
@@ -60,13 +58,13 @@ public class TicTacToe {
         for (int i = 0; i <= calcul.length - 1; i++) {
             calcul[i] = 0;
         }
-        // Double boucle de calcul des 8 sommes (3 lignes, 3 colonnes, 2 diagonales)
+        // Double boucle de calcul des sommes (size lignes, size colonnes, 2 diagonales)
         for (int i = 0; i <= size; i++) {
-            calcul[7] += plateau[i][i].getValue();      // somme de la diagonale 0.0+1.1+2.2 dans index 7
-            calcul[8] += plateau[i][size - i].getValue(); // somme de la diagonale 0.2+1.1+2.0 dans index 8
+            calcul[(size*2+2)+1] += plateau[i][i].getValue();      // somme de la diagonale 0.0+1.1+2.2+... dans index size*size + 1
+            calcul[(size*2+2)+2] += plateau[i][size - i].getValue(); // somme de la diagonale 0.size+1.1+... dans index size*size + 2
             for (int j = 0; j <= size; j++) {
                 calcul[j] += plateau[i][j].getValue();   // somme des lignes 0-1-2 dans index 0-1-2
-                calcul[j + 3] += plateau[j][i].getValue(); // somme des colonnes 0-1-2 dans index 3-4-5
+                calcul[j + size + 1] += plateau[j][i].getValue(); // somme des colonnes 0-1-2 dans index 3-4-5
                 // Calcul du nombre de coups joués
                 if (plateau[i][j].getValue() != Player.caseValue[0]) {
                     nombreCoupsJoues++;
@@ -94,7 +92,7 @@ public class TicTacToe {
         int alignementComplet = (size+1);
 
         // Par défaut la partie n'est pas finie
-        Boolean retour = false;
+        boolean retour = false;
 
         // calcul des sommes de chaque alignement et du nombre de coups joués
         ArrayList<Integer> minmaxnbre = (ArrayList<Integer>) situationCalcul().clone();
@@ -123,7 +121,7 @@ public class TicTacToe {
 
         // Initialisation des variables locales
         ArrayList<String> joueurs = new ArrayList<>(2);
-        String saisie = "";
+        String saisie;
 
         // Joueur vide index 0
         joueurs.add("JoueurVide");
@@ -145,10 +143,10 @@ public class TicTacToe {
         for (int i=0; i<=2; i++) {
             switch (listeJoueurs.get(i).toLowerCase()) {
                 case "random": // Joueur Aléatoire
-                    joueur.add(new ArtificialPlayer("Random"+i, Player.caseValue[i], Player.representationJoueur[i], Player.caseCouleur[i],i));
+                    joueur.add(new RandomPlayer("Random"+i, Player.caseValue[i], Player.representationJoueur[i], Player.caseCouleur[i],i ,size));
                     break;
                 default: // Joueur Humain
-                    joueur.add(new HumanPlayer(listeJoueurs.get(i), Player.caseValue[i], Player.representationJoueur[i], Player.caseCouleur[i],i));
+                    joueur.add(new HumanPlayer(listeJoueurs.get(i), Player.caseValue[i], Player.representationJoueur[i], Player.caseCouleur[i],i ,size));
             }
         }
     }
@@ -160,7 +158,7 @@ public class TicTacToe {
 
         // initialisation variables locales
         ArrayList<Integer> coup;
-        boolean resultat = false;
+        boolean resultat;
 
         // Boucle tant que le coup n'est pas sur une case vide
         do {
@@ -169,7 +167,7 @@ public class TicTacToe {
             coup = activePlayer.getMoveFromPlayer(size, activePlayer.indexCouleur);
 
             // si resultat = true alors la case est occupée, et affiche un message si le joueur n'est pas random
-            resultat = !damier.verifCaseLibre(coup, activePlayer.name);
+            resultat = !damier.verifCaseLibre(coup);
             if (resultat && !activePlayer.name.toLowerCase().startsWith("random")) {
                 viewer.afficherEcran(viewer.messageCase+coup.get(0)+"-"+coup.get(1)+viewer.messageCaseOccupee,0, true);
             }
@@ -187,7 +185,7 @@ public class TicTacToe {
     public void play () {
 
         //initialisation de la variable locale coup
-        ArrayList<Integer> coup = new ArrayList<Integer>(2);
+        ArrayList<Integer> coup; // = new ArrayList<Integer>(2);
 
         // Effacement écran
         viewer.displayEffacer();
@@ -197,7 +195,6 @@ public class TicTacToe {
         allocationPlayers(joueurs);
 
         // définition aléatoire du 1er joueur à jouer
-        int i;
         Player activePlayer = joueur.get((int)Math.round((Math.random()+1)));
 
         // boucle d'enchainement des coups
@@ -205,7 +202,6 @@ public class TicTacToe {
 
             //Afichage du plateau
             viewer.display(damier.getPlateau());
-//            viewer.display(damier.getRepresentation(viewer.col));
 
             // saisie du coup tant que la case choisie n'est pas vide
             coup = saisieCoup(activePlayer);
@@ -217,8 +213,10 @@ public class TicTacToe {
             damier.setOwner(activePlayer,coup);
 
             // Permute alternativement les joueurs
-            activePlayer = (activePlayer.name == joueur.get(2).name) ? joueur.get(1) : joueur.get(2);
-        } while (!isOver()); // répétition de la boucle tant que la partie n'est pas finie
+            activePlayer = (activePlayer.name.equals(joueur.get(2).name)) ? joueur.get(1) : joueur.get(2);
+
+        // répétition de la boucle tant que la partie n'est pas finie
+        } while (!isOver());
 
         // Affichage du damier final
         viewer.display(damier.getPlateau());

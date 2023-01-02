@@ -39,6 +39,11 @@ public class Viewer {
     public final String messageSaisissezCoup = "@D ,saisissez votre choix sous la forme Y.X (exit pour sortir du jeu): ";
     public final String messageCase = "@D@ECase ";
     public final String messageCaseOccupee = " déjà occupée, recommencez.";
+    public static String messageSaisieInvalide = "@D@Evotre saisie n'est pas correcte, recommencez.@D";
+//    public static String messageXYinvalides1 = "@D@Ey et x doivent être compris entre 0 et ";
+//    public static String messageXYinvalides2 = ", recommencez.@D";
+
+    public static String messageSortie = "@@EFin du programme demandé par le joueur.@D";
 
 
     // Initialisation des constantes de représentation du damier
@@ -54,7 +59,9 @@ public class Viewer {
     static final String inter = "┼";
     static final String ligne = "─";
     public static final String col = "│";
-    private Map<Integer, String> index = new HashMap<>();
+
+    // initialisation de la MAP
+    private final Map<Integer, String> index = new HashMap<>();
 
     /*
     Fonction de création de la ligne index
@@ -64,7 +71,7 @@ public class Viewer {
 
         // Initialisation variables locales
         String sortie = col+"   ";  // Affichage d'une case vide pour la premiere colonne du damier
-        String representation ="";
+        String representation;
         String conversion = new String();
 
         // boucle sur le nombre de cases du damier
@@ -89,7 +96,7 @@ public class Viewer {
     Fonction de création des lignes intermédiaires du damier
     @return String : ligne intermédiaire du damier
      */
-    private String setMotifs(String coin1, String milieu, String inter, String coin2, int size) {
+    private String setMotifs(String coin1, String inter, String coin2, int size) {
 
         // initialisation de la variable de sortie
         String sortie = "@D"+coin1;
@@ -114,16 +121,15 @@ public class Viewer {
 
         // initialisation des variables locales
         int size = cell.length;
-//        int size = cellRepr.length;
         String LineIndex = setIndex(size, col);
 
         // effacement du terminal
 //        displayEffacer();
 
         // création des 3 types de lignes d'affichage
-        String LineUp = setMotifs(coinHG, ligne, interH, coinHD,size);
-        String LineDown = setMotifs(coinBG, ligne, interB, coinBD,size);
-        String LineMid = setMotifs(interG, ligne, inter, interD, size);
+        String LineUp = setMotifs(coinHG, interH, coinHD,size);
+        String LineDown = setMotifs(coinBG, interB, coinBD,size);
+        String LineMid = setMotifs(interG, inter, interD, size);
 
         // Affichage de l'index de l'axe des x
         afficherEcran(LineUp,0,true);

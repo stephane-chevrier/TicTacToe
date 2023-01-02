@@ -10,9 +10,7 @@ import fr.le_campus_numerique.stephanechevrier.tictactoe.controleur.TicTacToe;
 
 public class Main {
 
-    /*
-    méthode principale
-     */
+    /* méthode principale */
     public static void main(String[] args) {
 
         // Initialisation de l'objet TicTacToe

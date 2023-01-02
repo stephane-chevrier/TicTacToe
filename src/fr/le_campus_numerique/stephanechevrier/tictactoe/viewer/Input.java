@@ -17,10 +17,11 @@ public class Input {
     }
 
     /* initialisation Objet Viewer */
-    private Viewer viewer = new Viewer();
+    private final Viewer viewer = new Viewer();
 
     /*
     Fonction de saisie d'une string avec un message de saisie
+    @return String : saisie du clavier
      */
     public String getString(String message, int index) {
 
@@ -30,10 +31,7 @@ public class Input {
         // affiche le message
         viewer.afficherEcran(message, index, false);
 
-        // saisie de la chaine
-        String saisie = clavier.nextLine();
-
         // retour de la chaine saisie
-        return saisie;
+        return clavier.nextLine();
     }
 }
