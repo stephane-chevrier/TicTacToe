@@ -17,7 +17,7 @@ public class Input {
     }
 
     /* initialisation Objet Viewer */
-    private final Viewer viewer = new Viewer();
+    private final Console console = new Console();
 
     /*
     Fonction de saisie d'une string avec un message de saisie
@@ -29,7 +29,7 @@ public class Input {
         Scanner clavier = new Scanner(System.in);
 
         // affiche le message
-        viewer.afficherEcran(message, index, false);
+        console.afficherEcran(message, index, false);
 
         // retour de la chaine saisie
         return clavier.nextLine();

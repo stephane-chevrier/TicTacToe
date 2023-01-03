@@ -9,15 +9,13 @@ Date            12 décembre 2022
 @author         Stéphane CHEVRIER
 */
 
-import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.Viewer;
+import fr.le_campus_numerique.stephanechevrier.tictactoe.controleur.TextesConsole;
+import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.Console;
+import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.Input;
+
 import java.util.ArrayList;
 
 public abstract class Player {
-
-    // définition des constantes pour les cases : couleur, valeur, représentation
-    public static final String[] caseCouleur = {Viewer.couleurDef.get("defaut"), Viewer.couleurDef.get("bleue"), Viewer.couleurDef.get("jaune")};
-    public static final int[] caseValue = {0,1,-1}; // tableau de valeurs des cases vides, joueur n°1 (int>=1), joueur n°2 (int<=-1)
-    public static final String[] representationJoueur = {" ","X","O"}; // tableau des représentations des cases vide, du joueur n°1, du joueur n°2
 
     // Initialisation variables d'instance
     public int indexCouleur;
@@ -40,5 +38,5 @@ public abstract class Player {
     /* Fonction de saisie de coordonnées + vérification + renvoie les coordonnées
     @return ArrayList<Integer> : {Y,X}
      */
-    public abstract ArrayList<Integer> getMoveFromPlayer (int size, int index);
+    public abstract ArrayList<Integer> getMoveFromPlayer (int size, int index, Console console, TextesConsole textesConsole, Input input);
 }

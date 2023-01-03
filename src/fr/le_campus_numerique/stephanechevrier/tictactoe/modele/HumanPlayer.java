@@ -9,8 +9,8 @@ Date            19 décembre 2022
 @author         Stéphane CHEVRIER
 */
 
-import fr.le_campus_numerique.stephanechevrier.tictactoe.controleur.TicTacToe;
-import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.Viewer;
+import fr.le_campus_numerique.stephanechevrier.tictactoe.controleur.TextesConsole;
+import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.Console;
 import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.Input;
 import java.util.ArrayList;
 
@@ -20,10 +20,6 @@ public class HumanPlayer extends Player {
     public HumanPlayer(String name, int value, String representation, String couleur, int indexCouleur, int size) {
         super(name, value, representation, couleur, indexCouleur, size);
     }
-
-    /* initialisation des objets Viewer et Input */
-    private Viewer viewer = new Viewer();
-    private Input input = new Input();
 
     /* initialisation texte du format regex correspondant au plateau */
     private final String texteRegexSaisie = calculTexteRegexSaisie();
@@ -48,28 +44,15 @@ public class HumanPlayer extends Player {
     /* fonction de vérification que la saisie contient X.Y
     @return boolean : true si saisie valide
     */
-    protected boolean verifFormatSaisie(String saisieVal) {
+    protected boolean verifFormatSaisie(String saisieVal, Console console) {
         if (saisieVal.matches(texteRegexSaisie)) {
             return true;
         } else {
             // message format saisie incorrect
-            viewer.afficherEcran(viewer.messageSaisieInvalide, 0, true);
+            console.afficherEcran(TextesConsole.messageSaisieInvalide, 0, true);
             return false;
         }
     }
-
-    /* fonction de vérification que les coordonnées saisies sont entre 0 et size
-    @return boolean : true si Y et X valides
-    */
-//    public boolean verifValeurSaisie(int i, int j, int size) {
-//        if (i >= 0 && i <= size && j >= 0 && j <= size) {
-//            return true;
-//        } else {
-//            // message valeurs saisies incorrectes
-//            viewer.afficherEcran(viewer.messageXYinvalides1 + size + viewer.messageXYinvalides2, 0 , true);
-//            return false;
-//        }
-//    }
 
     private String convert(String saisie) {
         String conversion = new String();
@@ -79,10 +62,10 @@ public class HumanPlayer extends Player {
         return saisie;
     }
 
-    /* méthode de sortie du programme si saisie exit */
-    public void checkExitProg(String saisie) {
+    /* méthode de sortie du programme si saisie exit */                                 // MIEUX DANS LE CONTROLEUR
+    public void checkExitProg(String saisie, Console console) {
         if (saisie.equalsIgnoreCase("exit")) {
-            viewer.afficherEcran(viewer.messageSortie,0,true);
+            console.afficherEcran(TextesConsole.messageSortie,0,true);
             System.exit(0);
         }
     }
@@ -91,7 +74,7 @@ public class HumanPlayer extends Player {
     @return ArrayList<Integer> : {Y,X}
     */
     @Override
-    public ArrayList<Integer> getMoveFromPlayer(int size, int index) {
+    public ArrayList<Integer> getMoveFromPlayer(int size, int index, Console console, TextesConsole textesConsole, Input input) {
 
         // Initialisation des variables locales
         ArrayList<Integer> retour = new ArrayList<>(2);
@@ -102,13 +85,13 @@ public class HumanPlayer extends Player {
         do {
 
             // saisie du coup avec message
-            String saisie = input.getString(viewer.messageJoueur + this.name + viewer.messageSaisissezCoup,index);
+            String saisie = input.getString(textesConsole.messageJoueur + this.name + textesConsole.messageSaisissezCoup,index);
 
             // sortie du programme si saisie exit
-            checkExitProg(saisie);
+            checkExitProg(saisie, console);
 
             // vérifie que la saisie contient X.Y
-            if (verifFormatSaisie(saisie)) {
+            if (verifFormatSaisie(saisie,console)) {
 
                 // convertit éventuellement les lettres en chiffres
                 saisie = convert(saisie);

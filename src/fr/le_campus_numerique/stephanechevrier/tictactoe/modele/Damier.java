@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class Damier {
 
-    // initialisation du damier (tableau 2 dimensions de l'objet cellule) et du tableau Calcul = Somme des alignements
+    // initialisation du damier (tableau 2 dimensions de l'objet cellule)
     private final Cell[][] plateau;
 
     /* Constructeur de la Class Damier */

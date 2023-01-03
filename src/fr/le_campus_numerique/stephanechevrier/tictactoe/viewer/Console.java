@@ -8,43 +8,12 @@ Date :          23 décembre 2022
 @author         Stéphane CHEVRIER
  */
 
-import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.Cell;
-import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.Player;
+import fr.le_campus_numerique.stephanechevrier.tictactoe.controleur.TextesConsole;
+import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.Cell;                   // MVC ?
 import java.util.HashMap;
 import java.util.Map;
 
-public class Viewer {
-
-    public static final Map<String,String> couleurDef = Map.of(
-            "rouge", "\u001B[31m",
-            "bleue", "\u001B[34m",
-            "defaut", "\u001B[0m",
-            "jaune", "\u001B[33m"
-    );
-
-    /*
-    Initialisation des messages affichés à l'écran
-    @C:insère la couleur du joueur,  @D:insère la couleur par défaut, @i:insère l'index, @E insère la couleur des messages d'erreur
-     */
-    public final String messageSaisieNom1 = "@DSaisissez le nom du @Cjoueur n°@i@D (Random pour joueur aléatoire) : ";
-    public final String messageCoupJoue1 = "@Dcoup ";
-    public final String messageCoupJoue2 = " joué par @C";
-
-    public final String messagePartieTerminee = "@Dpartie terminée";
-    public final String messageleJoueur = ", le joueur @C";
-    public final String messageAGagne = "@D a gagné !!!";
-    public final String messageEgalite = ", égalité.";
-
-    public final String messageJoueur = "@DJoueur @C";
-    public final String messageSaisissezCoup = "@D ,saisissez votre choix sous la forme Y.X (exit pour sortir du jeu): ";
-    public final String messageCase = "@D@ECase ";
-    public final String messageCaseOccupee = " déjà occupée, recommencez.";
-    public static String messageSaisieInvalide = "@D@Evotre saisie n'est pas correcte, recommencez.@D";
-//    public static String messageXYinvalides1 = "@D@Ey et x doivent être compris entre 0 et ";
-//    public static String messageXYinvalides2 = ", recommencez.@D";
-
-    public static String messageSortie = "@@EFin du programme demandé par le joueur.@D";
-
+public class Console {
 
     // Initialisation des constantes de représentation du damier
     static final String coinHG = "┌";
@@ -117,7 +86,7 @@ public class Viewer {
     Méthode d'affichage du damier
      */
 //    public void display(Cell[][] cell) {
-    public void display(Cell[][] cell) {
+    public void display(Cell[][] cell) {                                                // MVC ??????????????
 
         // initialisation des variables locales
         int size = cell.length;
@@ -140,7 +109,7 @@ public class Viewer {
         for (int i = 0; i <= size-1; i++) {
 
             // affichage du n° de ligne
-            afficherEcran(Viewer.col + " " + index.get(i) + " ", 0, false);
+            afficherEcran(Console.col + " " + index.get(i) + " ", 0, false);
 
             // boucle de balayage des colonnes
             for (int j = 0; j <= size-1; j++) {
@@ -148,7 +117,7 @@ public class Viewer {
 //                afficherEcran(cellRepr[i][j], 0, false);
             }
             // Affichage de la bordure de droite et de la ligne de séparation des lignes
-            afficherEcran(Viewer.col, 0, true);
+            afficherEcran(Console.col, 0, true);
             if (i < size-1) {
                 afficherEcran(LineMid, 0 , true);
             }
@@ -181,9 +150,9 @@ public class Viewer {
         convertTexte = convertTexte.valueOf(i);
 
         // Remplacement des codes @x par leur séquence
-        texte = texte.replaceAll("@C", Player.caseCouleur[i]);
-        texte = texte.replaceAll("@D", Player.caseCouleur[0]);
-        texte = texte.replaceAll("@E", couleurDef.get("rouge"));
+        texte = texte.replaceAll("@C", TextesConsole.caseCouleur[i]);
+        texte = texte.replaceAll("@D", TextesConsole.caseCouleur[0]);
+        texte = texte.replaceAll("@E", TextesConsole.couleurDef.get("rouge"));
         texte = texte.replaceAll("@i",convertTexte);
 
         // Affichage du texte

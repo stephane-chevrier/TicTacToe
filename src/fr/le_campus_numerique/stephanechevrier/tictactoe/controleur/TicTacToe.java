@@ -8,7 +8,7 @@ Date            12 décembre 2022
 @author         Stéphane CHEVRIER
 */
 
-import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.Viewer;
+import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.Console;
 import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.Input;
 import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.Damier;
 import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.Player;
@@ -22,13 +22,12 @@ public class TicTacToe {
 
     /* initialisation de la taille du plateau */
     /* =n défini un plateau de n+1 * n+1 cellules pour le jeu TicTacToe */
-    private int size = 12;
+    private int size = 2;
 
-    /* initialisation des objets Class Viewer, Damier et Input */
-    private final Viewer viewer = new Viewer();
-
+    /* initialisation des objets Class Viewer, TextesEcran, Damier et Input */
+    private final Console console = new Console();
+    private final TextesConsole textesConsole = new TextesConsole();
     private final Damier damier = new Damier(size);
-
     private final Input input = new Input();
 
     /* initialisation des joueurs */
@@ -66,7 +65,7 @@ public class TicTacToe {
                 calcul[j] += plateau[i][j].getValue();   // somme des lignes 0-1-2 dans index 0-1-2
                 calcul[j + size + 1] += plateau[j][i].getValue(); // somme des colonnes 0-1-2 dans index 3-4-5
                 // Calcul du nombre de coups joués
-                if (plateau[i][j].getValue() != Player.caseValue[0]) {
+                if (plateau[i][j].getValue() != TextesConsole.caseValue[0]) {
                     nombreCoupsJoues++;
                 }
             }
@@ -99,15 +98,15 @@ public class TicTacToe {
 
         // boucle de test si le joueur i a gagné
         for (int i=0; i<2; i++) {
-            if (minmaxnbre.get(i) == alignementComplet*Player.caseValue[i+1]) {
-                viewer.afficherEcran(viewer.messagePartieTerminee + viewer.messageleJoueur + joueur.get(i + 1).name + viewer.messageAGagne, i + 1, true);
+            if (minmaxnbre.get(i) == alignementComplet* TextesConsole.caseValue[i+1]) {
+                console.afficherEcran(textesConsole.messagePartieTerminee + textesConsole.messageleJoueur + joueur.get(i + 1).name + textesConsole.messageAGagne, i + 1, true);
                 retour = true;
             }
         }
 
         // Il n'y a plus de coups à jouer et il n'y a aucun vainqueur
         if ((minmaxnbre.get(2) == alignementComplet*alignementComplet) && (!retour)) {
-            viewer.afficherEcran(viewer.messagePartieTerminee + viewer.messageEgalite, 0, true);
+            console.afficherEcran(textesConsole.messagePartieTerminee + textesConsole.messageEgalite, 0, true);
             retour = true;
         }
         return retour;
@@ -128,7 +127,7 @@ public class TicTacToe {
 
         // Boucle de saisie des 2 joueurs
         for (int i=1; i<=2; i++) {
-            saisie = input.getString(viewer.messageSaisieNom1, i);
+            saisie = input.getString(textesConsole.messageSaisieNom1, i);
             joueurs.add(saisie);
         }
         // retour de la ArrayList des 3 joueurs (vide, joueur n°1, joueur n°2)
@@ -143,10 +142,10 @@ public class TicTacToe {
         for (int i=0; i<=2; i++) {
             switch (listeJoueurs.get(i).toLowerCase()) {
                 case "random": // Joueur Aléatoire
-                    joueur.add(new RandomPlayer("Random"+i, Player.caseValue[i], Player.representationJoueur[i], Player.caseCouleur[i],i ,size));
+                    joueur.add(new RandomPlayer("Random"+i, TextesConsole.caseValue[i], TextesConsole.representationJoueur[i], TextesConsole.caseCouleur[i],i ,size));
                     break;
                 default: // Joueur Humain
-                    joueur.add(new HumanPlayer(listeJoueurs.get(i), Player.caseValue[i], Player.representationJoueur[i], Player.caseCouleur[i],i ,size));
+                    joueur.add(new HumanPlayer(listeJoueurs.get(i), TextesConsole.caseValue[i], TextesConsole.representationJoueur[i], TextesConsole.caseCouleur[i],i ,size));
             }
         }
     }
@@ -164,12 +163,12 @@ public class TicTacToe {
         do {
 
             // récupération du coup
-            coup = activePlayer.getMoveFromPlayer(size, activePlayer.indexCouleur);
+            coup = activePlayer.getMoveFromPlayer(size, activePlayer.indexCouleur, console, textesConsole, input);
 
             // si resultat = true alors la case est occupée, et affiche un message si le joueur n'est pas random
             resultat = !damier.verifCaseLibre(coup);
             if (resultat && !activePlayer.name.toLowerCase().startsWith("random")) {
-                viewer.afficherEcran(viewer.messageCase+coup.get(0)+"-"+coup.get(1)+viewer.messageCaseOccupee,0, true);
+                console.afficherEcran(textesConsole.messageCase+coup.get(0)+"-"+coup.get(1)+ textesConsole.messageCaseOccupee,0, true);
             }
 
         // fin boucle
@@ -188,7 +187,7 @@ public class TicTacToe {
         ArrayList<Integer> coup; // = new ArrayList<Integer>(2);
 
         // Effacement écran
-        viewer.displayEffacer();
+        console.displayEffacer();
 
         // Définition et allocation des joueurs
         ArrayList<String> joueurs = definitionJoueurs();
@@ -201,13 +200,13 @@ public class TicTacToe {
         do {
 
             //Afichage du plateau
-            viewer.display(damier.getPlateau());
+            console.display(damier.getPlateau());
 
             // saisie du coup tant que la case choisie n'est pas vide
             coup = saisieCoup(activePlayer);
 
             // affichage du coup
-            viewer.afficherEcran(viewer.messageCoupJoue1 + coup.get(0) + "-" + coup.get(1) + viewer.messageCoupJoue2 + activePlayer.name, activePlayer.indexCouleur, true);
+            console.afficherEcran(textesConsole.messageCoupJoue1 + coup.get(0) + "-" + coup.get(1) + textesConsole.messageCoupJoue2 + activePlayer.name, activePlayer.indexCouleur, true);
 
             // créé le coup du joueur actif
             damier.setOwner(activePlayer,coup);
@@ -219,7 +218,7 @@ public class TicTacToe {
         } while (!isOver());
 
         // Affichage du damier final
-        viewer.display(damier.getPlateau());
+        console.display(damier.getPlateau());
     }
 
 }

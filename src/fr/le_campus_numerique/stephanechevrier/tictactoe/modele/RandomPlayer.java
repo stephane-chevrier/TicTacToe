@@ -9,12 +9,16 @@ Date            19 décembre 2022
 @author         Stéphane CHEVRIER
 */
 
+import fr.le_campus_numerique.stephanechevrier.tictactoe.controleur.TextesConsole;
+import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.Console;
+import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.Input;
+
 import java.util.ArrayList;
 import java.util.Random;
 
 public class RandomPlayer extends Player {
 
-    /* constructeur de la Class ArtificialPlayer */
+    /* constructeur de la Class RandomPlayer */
     public RandomPlayer(String name, int value, String representation, String couleur, int indexCouleur, int size) {
         super(name, value, representation, couleur, indexCouleur, size);
     }
@@ -23,7 +27,7 @@ public class RandomPlayer extends Player {
     @return ArrayList<Integer> : {Y,X}
     */
     @Override
-    public ArrayList<Integer> getMoveFromPlayer(int size, int index) {
+    public ArrayList<Integer> getMoveFromPlayer(int size, int index, Console console, TextesConsole textesConsole, Input input) {
         // Initialisation des variables locales
         ArrayList<Integer> retour = new ArrayList<>(2);
         // Création instance aleatoire de Random()
