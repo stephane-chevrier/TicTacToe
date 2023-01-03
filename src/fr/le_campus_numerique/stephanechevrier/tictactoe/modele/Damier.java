@@ -9,6 +9,8 @@ Date            12 décembre 2022
 @author         Stéphane CHEVRIER
 */
 
+import fr.le_campus_numerique.stephanechevrier.tictactoe.controleur.TextesConsole;
+
 import java.util.ArrayList;
 
 public class Damier {
@@ -50,7 +52,7 @@ public class Damier {
     @return boolean : true si la case est libre
     */
     public boolean verifCaseLibre(ArrayList<Integer> coup) {
-        return (plateau[coup.get(0)][coup.get(1)].getValue() == 0);
+        return (plateau[coup.get(0)][coup.get(1)].getValue() == TextesConsole.caseValue[0]);
     }
 }
 

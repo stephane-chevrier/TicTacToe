@@ -9,9 +9,11 @@ Date            12 décembre 2022
 @author         Stéphane CHEVRIER
 */
 
+// concerne que des constantes --> acceptable
 import fr.le_campus_numerique.stephanechevrier.tictactoe.controleur.TextesConsole;
-import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.Console;
-import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.Input;
+// concerne HumanPlayer qui utilise l'écran et le clavier
+import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.*;
+
 
 import java.util.ArrayList;
 

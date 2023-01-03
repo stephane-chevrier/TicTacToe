@@ -14,7 +14,7 @@ import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class TicTacToe implements GameControleur {
+public class TicTacToe2 implements GameControleur {
 
     /* initialisation de la taille du plateau */
     public final int size;
@@ -25,8 +25,8 @@ public class TicTacToe implements GameControleur {
     public GameJoueurs gameJoueurs;
 
     /* Constructeur de la Class TicTacToe */
-    public TicTacToe() {
-        this.size = 2;      /* =n défini un plateau de n+1 * n+1 cellules pour le jeu TicTacToe */
+    public TicTacToe2() {
+        this.size = 5;          /* =n défini un plateau de n+1 * n+1 cellules pour le jeu TicTacToe */
         this.textesConsole = new TextesConsole();
         this.console = new Console();
         this.damier = new Damier(this.size);                 // this.size permet de spécifier size de l'objet TicTacToe
@@ -147,7 +147,7 @@ public class TicTacToe implements GameControleur {
             // Permute alternativement les joueurs
             activePlayer = (activePlayer.name.equals(gameJoueurs.joueur.get(2).name)) ? gameJoueurs.joueur.get(1) : gameJoueurs.joueur.get(2);
 
-        // répétition de la boucle tant que la partie n'est pas finie
+            // répétition de la boucle tant que la partie n'est pas finie
         } while (!isOver());
 
         // Affichage du damier final

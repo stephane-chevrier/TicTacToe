@@ -6,7 +6,7 @@ Date            12 décembre 2022
 @author         Stéphane CHEVRIER
 */
 
-import fr.le_campus_numerique.stephanechevrier.tictactoe.controleur.TicTacToe;
+import fr.le_campus_numerique.stephanechevrier.tictactoe.controleur.*;
 
 public class Main {
 
@@ -14,7 +14,7 @@ public class Main {
     public static void main(String[] args) {
 
         // Initialisation de l'objet TicTacToe
-        TicTacToe ticTacToe = new TicTacToe();
+        GameControleur ticTacToe = new TicTacToe2();
 
         // lancement du jeu TicTacToe
         ticTacToe.play();

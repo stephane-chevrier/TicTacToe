@@ -10,9 +10,7 @@ Date            19 décembre 2022
 */
 
 import fr.le_campus_numerique.stephanechevrier.tictactoe.controleur.TextesConsole;
-import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.Console;
-import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.Input;
-
+import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.*;
 import java.util.ArrayList;
 import java.util.Random;
 

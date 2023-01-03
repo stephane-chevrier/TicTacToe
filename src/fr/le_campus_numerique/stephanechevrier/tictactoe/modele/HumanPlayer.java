@@ -10,8 +10,7 @@ Date            19 décembre 2022
 */
 
 import fr.le_campus_numerique.stephanechevrier.tictactoe.controleur.TextesConsole;
-import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.Console;
-import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.Input;
+import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.*;
 import java.util.ArrayList;
 
 public class HumanPlayer extends Player {
@@ -62,13 +61,13 @@ public class HumanPlayer extends Player {
         return saisie;
     }
 
-    /* méthode de sortie du programme si saisie exit */                                 // MIEUX DANS LE CONTROLEUR
+    /* méthode de sortie du programme si saisie exit */
     public void checkExitProg(String saisie, Console console) {
         if (saisie.equalsIgnoreCase("exit")) {
             console.afficherEcran(TextesConsole.messageSortie,0,true);
             System.exit(0);
         }
-    }
+    }                // MIEUX DANS LE CONTROLEUR
 
     /* Fonction de saisie de coordonnées + vérification + renvoie les coordonnées
     @return ArrayList<Integer> : {Y,X}
