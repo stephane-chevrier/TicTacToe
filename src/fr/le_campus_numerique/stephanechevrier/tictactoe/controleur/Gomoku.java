@@ -1,10 +1,10 @@
 package fr.le_campus_numerique.stephanechevrier.tictactoe.controleur;
 
 /*
-Nom             TicTacToe
+Nom             Gomoku
 Description     Contrôleur jeu TicTacToe (MVC)
 @version        v1.0
-Date            12 décembre 2022
+Date            4 janvier 2023
 @author         Stéphane CHEVRIER
 */
 
@@ -12,12 +12,13 @@ import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.*;
 import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class TicTacToe2 implements GameControleur {
+public class Gomoku implements GameControleur {
 
     /* initialisation de la taille du plateau */
     public final int size;
+    public int nbreAlignements;
+    public int alignementGagnant;
 
     public TextesConsole textesConsole;
     public Console console;
@@ -25,8 +26,11 @@ public class TicTacToe2 implements GameControleur {
     public GameJoueurs gameJoueurs;
 
     /* Constructeur de la Class TicTacToe */
-    public TicTacToe2() {
-        this.size = 5;          /* =n défini un plateau de n+1 * n+1 cellules pour le jeu TicTacToe */
+    public Gomoku() {
+        this.size = 6;      // =n défini un plateau de n+1 * n+1 cellules pour le jeu TicTacToe
+                            // ATTENTION n doit être supérieur ou égal à 5
+        this.nbreAlignements = (size+1)*6;
+        this.alignementGagnant = 5;
         this.textesConsole = new TextesConsole();
         this.console = new Console();
         this.damier = new Damier(this.size);                 // this.size permet de spécifier size de l'objet TicTacToe
@@ -40,43 +44,50 @@ public class TicTacToe2 implements GameControleur {
     @return ArrayList<Integer>(3) : minimum, maximum, nombre de coups joués
      */
     @Override
-    public ArrayList<Integer> situationCalcul() {
-
-        // ArrayList de sortie
-        ArrayList<Integer> retour = new ArrayList<>(3);
+    public String[] situationCalcul() {
 
         // RAZ du tableau de calcul des sommes et du nombre de coups joués
         int nombreCoupsJoues = 0;
-        int[] calcul = new int[(size+1)*3];
+        String[] calcul = new String[nbreAlignements];
+        int nombreDiag = (size+1-alignementGagnant);
 
         // Copie locale du plateau
         Cell[][] plateau = damier.getPlateau();
         for (int i = 0; i <= calcul.length - 1; i++) {
-            calcul[i] = 0;
+            calcul[i] = "";
         }
         // Double boucle de calcul des sommes (size lignes, size colonnes, 2 diagonales)
         for (int i = 0; i <= size; i++) {
-            calcul[(size*2+2)+1] += plateau[i][i].getValue();      // somme de la diagonale 0.0+1.1+2.2+... dans index size*size + 1
-            calcul[(size*2+2)+2] += plateau[i][size - i].getValue(); // somme de la diagonale 0.size+1.1+... dans index size*size + 2
+
+            // boucle de calcul des sommes des diagonales qui contiennent au moins "alignementGagnant" cases
+            for (int k = -nombreDiag; k <= +nombreDiag; k++) {
+
+                // somme de la diagonale 0.0+1.1+2.2+... dans index size*2 + k
+                if ((i+k >= 0) && (i+k <= size)) {
+                    calcul[(size + 1) * 2 + nombreDiag + k] += plateau[i + k][i + k].getRepresentationBrut();
+                }
+                // somme de la diagonale 0.size+1.1+... dans index size*3 + k
+                if (((i+k) >= 0) && (i+k <= size) && ((size-i+k) >=0) && ((size-i+k) <= size)) {
+                    calcul[(size + 1) * 4 + nombreDiag + k] += plateau[i + k][size - i + k].getRepresentationBrut();
+                }
+            }
+
             for (int j = 0; j <= size; j++) {
-                calcul[j] += plateau[i][j].getValue();   // somme des lignes 0-1-2 dans index 0-1-2
-                calcul[j + size + 1] += plateau[j][i].getValue(); // somme des colonnes 0-1-2 dans index 3-4-5
+                calcul[j] += plateau[i][j].getRepresentationBrut();   // somme des lignes 0-1-2 dans index 0-1-2
+                calcul[(size+1)+j] += plateau[j][i].getRepresentationBrut(); // somme des colonnes 0-1-2 dans index 3-4-5
+
                 // Calcul du nombre de coups joués
-                if (plateau[i][j].getValue() != TextesConsole.caseValue[0]) {
+                if (plateau[i][j].getRepresentationBrut() != "") {
                     nombreCoupsJoues++;
                 }
             }
         }
 
-        // calcul des maximum et minimum des 2 tableaux calculX et calculY qui contiennent la somme de chaque alignement
-        retour.add(Arrays.stream(calcul).max().getAsInt());
-        retour.add(Arrays.stream(calcul).min().getAsInt());
-
         // retour du nombre de coups joués
-        retour.add(nombreCoupsJoues);
+        calcul[nbreAlignements-1] = calcul[(size+1)*3-1].valueOf(nombreCoupsJoues);
 
         // fin de la fonction
-        return retour;
+        return calcul;
     }
 
     /*
@@ -86,24 +97,34 @@ public class TicTacToe2 implements GameControleur {
      */
     @Override
     public boolean isOver() {
-        int alignementComplet = (size+1);
+
+        // initialisation des séries gagnantes
+        String[] alignementComplet = new String[2];
+
+        // récupération des sommes de chaque alignement
+        String[] calcul = situationCalcul();
 
         // Par défaut la partie n'est pas finie
         boolean retour = false;
 
-        // calcul des sommes de chaque alignement et du nombre de coups joués
-        ArrayList<Integer> minmaxnbre = (ArrayList<Integer>) situationCalcul().clone();
-
         // boucle de test si le joueur i a gagné
         for (int i=0; i<2; i++) {
-            if (minmaxnbre.get(i) == alignementComplet* TextesConsole.caseValue[i+1]) {
-                console.afficherEcran(textesConsole.messagePartieTerminee + textesConsole.messageleJoueur + gameJoueurs.joueur.get(i + 1).name + textesConsole.messageAGagne, i + 1, true);
-                retour = true;
+            alignementComplet[i]=TextesConsole.representationJoueur[i+1].repeat(alignementGagnant);
+
+            for (String j : calcul) {
+                if (j.indexOf(alignementComplet[i])!=-1) {
+                    console.afficherEcran(textesConsole.messagePartieTerminee + textesConsole.messageleJoueur + gameJoueurs.joueur.get(i + 1).name + textesConsole.messageAGagne, i + 1, true);
+                    retour = true;
+                }
             }
+
         }
 
+        // récupération du nombre de coups joués dans le dernier éléments du tableau de String
+        int nombreCoupsJoues = Integer.parseInt(calcul[calcul.length-1]);
+
         // Il n'y a plus de coups à jouer et il n'y a aucun vainqueur
-        if ((minmaxnbre.get(2) == alignementComplet*alignementComplet) && (!retour)) {
+        if ((nombreCoupsJoues==(size+1)*(size+1)) && (!retour)) {
             console.afficherEcran(textesConsole.messagePartieTerminee + textesConsole.messageEgalite, 0, true);
             retour = true;
         }
@@ -120,7 +141,7 @@ public class TicTacToe2 implements GameControleur {
         ArrayList<Integer> coup;
 
         // Effacement écran
-        console.displayEffacer();
+//        console.displayEffacer();
 
         // Définition et allocation des joueurs
         ArrayList<String> joueurs = gameJoueurs.definitionJoueurs();

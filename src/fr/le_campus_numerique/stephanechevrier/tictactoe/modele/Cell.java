@@ -19,14 +19,20 @@ public class Cell {
     /* constructeur de Cell() */                                                    // MVC ????????????
     public Cell() {
         // par défaut les cellules contiennent un joueur vide (joueur n°0)
-        this.joueur = new HumanPlayer(" ", TextesConsole.caseValue[0], TextesConsole.representationJoueur[0], TextesConsole.caseCouleur[0], 0, 0);
+        this.joueur = new HumanPlayer("", TextesConsole.caseValue[0], TextesConsole.representationJoueur[0], TextesConsole.caseCouleur[0], 0, 0);
     }
 
     /* Fonction de représentation de la cellule à partir des représentations de joueurs
-    @return String : "| X " ou "| O " ou "|   "
+    @return String : "| X " ou "| O " ou "|   "  avec la sequence couleur du joueur
     */                                                                              // MVC ????????????
     public String getRepresentation(String col) {
         return col + " " + joueur.couleur + joueur.representation + TextesConsole.caseCouleur[0] + " ";
+    }
+    /* Fonction de représentation de la cellule à partir des représentations de joueurs
+    @return String : X ou O ou ""
+     */                                                                              // MVC ????????????
+    public String getRepresentationBrut() {
+        return joueur.representation;
     }
 
     /* Fonction de récupération de la valeur de la cellule en fonction du joueur de la cellule

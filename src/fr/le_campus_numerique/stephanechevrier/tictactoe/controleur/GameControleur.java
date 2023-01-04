@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public interface GameControleur {
 
-    public ArrayList<Integer> situationCalcul();
+    public String[] situationCalcul();
 
     public boolean isOver();
 

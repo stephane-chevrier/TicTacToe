@@ -49,4 +49,14 @@ public class TextesConsole {
 
     public static String messageSortie = "@@EFin du programme demandé par le joueur.@D";
 
+    public static String messageBienvenue = "Bienvenue sur ma plateforme de jeux, ";
+    public static String messageListeDesJeux = "liste des jeux possibles :";
+
+    public static String messageFaitesVotreChoix = "Choisissez votre jeu (quit pour quitter la plateforme) : ";
+
+    public static String messageFin = "Merci d'être venu, à bientôt !!!";
+
+
+
+
 }
