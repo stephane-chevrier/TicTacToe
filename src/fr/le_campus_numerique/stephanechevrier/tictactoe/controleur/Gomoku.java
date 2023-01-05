@@ -27,8 +27,8 @@ public class Gomoku implements GameControleur {
 
     /* Constructeur de la Class TicTacToe */
     public Gomoku() {
-        this.size = 6;      // =n défini un plateau de n+1 * n+1 cellules pour le jeu TicTacToe
-                            // ATTENTION n doit être supérieur ou égal à 5
+        this.size = 14;      // =n défini un plateau de n+1 * n+1 cellules pour le jeu TicTacToe
+                            // ATTENTION n doit être supérieur ou égal à 4
         this.nbreAlignements = (size+1)*6;
         this.alignementGagnant = 5;
         this.textesConsole = new TextesConsole();
@@ -56,28 +56,33 @@ public class Gomoku implements GameControleur {
         for (int i = 0; i <= calcul.length - 1; i++) {
             calcul[i] = "";
         }
-        // Double boucle de calcul des sommes (size lignes, size colonnes, 2 diagonales)
+
+        // Double boucle de calcul des sommes (size lignes, size colonnes, 18 diagonales)
         for (int i = 0; i <= size; i++) {
 
-            // boucle de calcul des sommes des diagonales qui contiennent au moins "alignementGagnant" cases
-            for (int k = -nombreDiag; k <= +nombreDiag; k++) {
+            // boucle de calcul des diagonales
+            for (int j = -nombreDiag; j <= +nombreDiag; j++) {
 
-                // somme de la diagonale 0.0+1.1+2.2+... dans index size*2 + k
-                if ((i+k >= 0) && (i+k <= size)) {
-                    calcul[(size + 1) * 2 + nombreDiag + k] += plateau[i + k][i + k].getRepresentationBrut();
+                // somme de la diagonale 0.0+1.1+...+size.size dans index size*2-size*2+1-....-size*2+size
+                if ((i + j >= 0) && (i + j <= size)) {
+                    calcul[(size + 1) * 2 + nombreDiag + j] += plateau[i + j][i].getRepresentationBrut();
                 }
-                // somme de la diagonale 0.size+1.1+... dans index size*3 + k
-                if (((i+k) >= 0) && (i+k <= size) && ((size-i+k) >=0) && ((size-i+k) <= size)) {
-                    calcul[(size + 1) * 4 + nombreDiag + k] += plateau[i + k][size - i + k].getRepresentationBrut();
+                // somme de la diagonale 0.size-1.size-1-....-size.0 dans index size*3-size*3+1-....-size*3+size
+                if (((i + j) >= 0) && (i + j <= size)) {
+                    calcul[(size + 1) * 4 + nombreDiag + j] += plateau[i + j][size - i].getRepresentationBrut();
                 }
             }
-
+            // boucle de calcul des lignes et des colonnes
             for (int j = 0; j <= size; j++) {
-                calcul[j] += plateau[i][j].getRepresentationBrut();   // somme des lignes 0-1-2 dans index 0-1-2
-                calcul[(size+1)+j] += plateau[j][i].getRepresentationBrut(); // somme des colonnes 0-1-2 dans index 3-4-5
+
+                // somme des lignes 0-1-....-size dans index 0-1-.....-size
+                calcul[j] += plateau[i][j].getRepresentationBrut();
+
+                // somme des colonnes 0-1-....-size dans index size+1-size+2-.....-size+size+1
+                calcul[(size+1)+1+j] += plateau[j][i].getRepresentationBrut();
 
                 // Calcul du nombre de coups joués
-                if (plateau[i][j].getRepresentationBrut() != "") {
+                if (!plateau[i][j].getRepresentationBrut().equals(" ")) {
                     nombreCoupsJoues++;
                 }
             }
