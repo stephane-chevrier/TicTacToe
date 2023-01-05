@@ -1,21 +1,25 @@
 package fr.le_campus_numerique.stephanechevrier.tictactoe.controleur;
 
-/*
-Nom             GameLaunch
-Description     Contrôleur jeu TicTacToe (MVC)
-                Sélection et lancement du jeu choisi
-@version        v1.0
-Date            12 décembre 2022
-@author         Stéphane CHEVRIER
-*/
+/**
+ * Nom             GameLaunch
+ * Description     Contrôleur jeu TicTacToe (MVC)
+ *                 Sélection et lancement du jeu choisi
+ * @version v1.0
+ * Date            12 décembre 2022
+ * @author Stéphane CHEVRIER
+ */
 
+import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.Damier;
+import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.Player;
 import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.*;
+
+import java.util.ArrayList;
 
 public class GameLaunch {
 
-    // initialisation
-
-    // définition des jeux possibles
+    /**
+     * définition des jeux possibles
+     */
     enum gameChoice {
         TICTACTOE,
         GOMOKU,
@@ -23,20 +27,27 @@ public class GameLaunch {
         QUIT
     }
 
-    // initialisation des objets
+    /**
+     * initialisation des objets
+     */
     Console console;
     TextesConsole textesConsole;
     Input input;
+    Damier damier;
 
-    /* Constructeur de la Class GameLaunch */
+    GameJoueurs gameJoueurs;
+
+    /**
+     * Constructeur de la Class GameLaunch
+     */
     public GameLaunch() {
         this.console = new Console();
         this.textesConsole = new TextesConsole();
         this.input = new Input();
     }
 
-    /*
-    Méthode de lancement de la plateforme et de sélection du jeu
+    /**
+     * Méthode de lancement de la plateforme et de sélection du jeu
      */
     public void gameLaunch() {
 
@@ -46,19 +57,19 @@ public class GameLaunch {
 
         // Initialisation de l'affichage
         console.displayEffacer();
-        console.afficherEcran(textesConsole.messageBienvenue, 0, false);
+        console.afficherEcran(textesConsole.MESSAGE_BIENVENUE, 0, false);
 
         // Boucle tant que Quit n'est pas saisie
         do {
 
             // Affichage des jeux possible
-            console.afficherEcran(textesConsole.messageListeDesJeux, 0, true);
+            console.afficherEcran(textesConsole.MESSAGE_LISTE_DES_JEUX, 0, true);
             for (gameChoice g : gameChoice.values()) {
                 console.afficherEcran(g.toString(), 0, true);
             }
 
             // Saisie du nom du jeu
-            saisie = input.getString(textesConsole.messageFaitesVotreChoix, 0);
+            saisie = input.getString(textesConsole.MESSAGE_FAITES_VOTRE_CHOIX, 0);
 
             // Traitement exception si saisie n'est pas dans gameChoice
             try {
@@ -79,13 +90,14 @@ public class GameLaunch {
                     }
                     // Plateforme quittée
                     case QUIT -> {
-                        console.afficherEcran(textesConsole.messageFin, 0, true);
+                        console.afficherEcran(textesConsole.MESSAGE_FIN, 0, true);
                         jeu = null;
                     }
                 }
                 // Traitement exception
             } catch (Exception e) {
-                console.afficherEcran(textesConsole.messageSaisieInvalide, 0, true);
+                console.afficherEcran(textesConsole.MESSAGE_SAISIE_INVALIDE, 0, true);
+                jeu = null;
             }
 
             // lancement du jeu sélectionné
@@ -96,4 +108,5 @@ public class GameLaunch {
         // Fin boucle de sélection du jeu ou QUIT
         while (!(gameChoice.QUIT.toString().equalsIgnoreCase(saisie))) ;
     }
+
 }

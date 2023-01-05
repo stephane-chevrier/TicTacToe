@@ -1,27 +1,33 @@
 package fr.le_campus_numerique.stephanechevrier.tictactoe.viewer;
 
-/*
-Nom:            Input
-Description :   Class de saisie du jeu TicTacToe (MVC)
-@version        v1.0
-Date :          24 décembre 2022
-@author         Stéphane CHEVRIER
+/**
+ * Nom:            Input
+ * Description :   Class de saisie du jeu TicTacToe (MVC)
+ * @version v1.0
+ * Date :          24 décembre 2022
+ * @author Stéphane CHEVRIER
  */
 
 import java.util.Scanner;
 
 public class Input {
 
-    /* constructeur Class Input */
+    /**
+     * constructeur Class Input
+     */
     public Input() {
     }
 
-    /* initialisation Objet Viewer */
+    /**
+     * initialisation Objet Console
+     */
     private final Console console = new Console();
 
-    /*
-    Fonction de saisie d'une string avec un message de saisie
-    @return String : saisie du clavier
+    /**
+     * Fonction de saisie d'une string avec un message de saisie
+     * @param message
+     * @param index
+     * @return String : saisie du clavier
      */
     public String getString(String message, int index) {
 

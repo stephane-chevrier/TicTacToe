@@ -1,13 +1,13 @@
 package fr.le_campus_numerique.stephanechevrier.tictactoe.modele;
 
-/*
-Nom             RandomPlayer, extends Player
-Description     Modèle jeu TicTacToe (MVC)
-                Joueurs aléatoires
-@version        v1.0
-Date            19 décembre 2022
-@author         Stéphane CHEVRIER
-*/
+/**
+ * Nom             RandomPlayer, extends Player
+ * Description     Modèle jeu TicTacToe (MVC)
+ *                 Joueurs aléatoires
+ * @version v1.0
+ * Date            19 décembre 2022
+ * @author Stéphane CHEVRIER
+ */
 
 import fr.le_campus_numerique.stephanechevrier.tictactoe.controleur.TextesConsole;
 import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.*;
@@ -16,14 +16,28 @@ import java.util.Random;
 
 public class RandomPlayer extends Player {
 
-    /* constructeur de la Class RandomPlayer */
+    /**
+     * constructeur de la Class RandomPlayer
+     * @param name
+     * @param value
+     * @param representation
+     * @param couleur
+     * @param indexCouleur
+     * @param size
+     */
     public RandomPlayer(String name, int value, String representation, String couleur, int indexCouleur, int size) {
         super(name, value, representation, couleur, indexCouleur, size);
     }
 
-    /* Fonction de choix aléatoire de coordonnées + vérification + renvoie les coordonnées
-    @return ArrayList<Integer> : {Y,X}
-    */
+    /**
+     * Fonction de choix aléatoire de coordonnées + vérification + renvoie les coordonnées
+     * @param size
+     * @param index
+     * @param console
+     * @param textesConsole
+     * @param input
+     * @return ArrayList<Integer> : {Y,X}
+     */
     @Override
     public ArrayList<Integer> getMoveFromPlayer(int size, int index, Console console, TextesConsole textesConsole, Input input) {
         // Initialisation des variables locales
