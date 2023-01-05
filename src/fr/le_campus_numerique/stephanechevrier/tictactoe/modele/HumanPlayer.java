@@ -45,7 +45,7 @@ public class HumanPlayer extends Player {
         // si size<10 regex = [0-size].[0-size]
         if (size<10) {
             conversion = conversion.valueOf(size);
-        // si size >=10 regex =
+        // si size >=10 regex = [0-9A-55+size].[0-9A-55+size]
         } else {
             conversion = "9A-"+Character.toString(55+size);
         }

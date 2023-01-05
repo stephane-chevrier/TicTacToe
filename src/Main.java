@@ -14,9 +14,10 @@ public class Main {
     public static void main(String[] args) {
 
         // Initialisation de l'objet TicTacToe
-        GameControleur ticTacToe = new TicTacToe2();
+//      GameControleur ticTacToe = new TicTacToe2();
+        GameLaunch gameLaunch = new GameLaunch();
 
         // lancement du jeu TicTacToe
-        ticTacToe.play();
+        gameLaunch.gameLaunch();
     }
 }

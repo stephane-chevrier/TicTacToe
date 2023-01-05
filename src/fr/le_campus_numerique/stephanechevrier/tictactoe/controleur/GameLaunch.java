@@ -9,8 +9,6 @@ package fr.le_campus_numerique.stephanechevrier.tictactoe.controleur;
  * @author Stéphane CHEVRIER
  */
 
-import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.Damier;
-import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.Player;
 import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.*;
 
 import java.util.ArrayList;
@@ -33,9 +31,6 @@ public class GameLaunch {
     Console console;
     TextesConsole textesConsole;
     Input input;
-    Damier damier;
-
-    GameJoueurs gameJoueurs;
 
     /**
      * Constructeur de la Class GameLaunch

@@ -16,6 +16,11 @@ import java.util.Map;
 public class Console {
 
     /**
+     * initialisation objet TextesConsole
+     */
+    TextesConsole textesConsole = new TextesConsole();
+
+    /**
      * Initialisation des constantes de représentation du damier
      */
     static final String
@@ -78,7 +83,7 @@ public class Console {
     private String setMotifs(String coin1, String inter, String coin2, int size) {
 
         // initialisation de la variable de sortie
-        String sortie = "@D"+coin1;
+        String sortie = textesConsole.CODE_DEFAUT+coin1;
 
         // boucle sur le nombre de cases -1 du damier
         for (int i = 0; i < size; i++) {
@@ -163,10 +168,10 @@ public class Console {
         convertTexte = convertTexte.valueOf(i);
 
         // Remplacement des codes @x par leur séquence
-        texte = texte.replaceAll("@C", TextesConsole.CASE_COULEUR[i]);
-        texte = texte.replaceAll("@D", TextesConsole.CASE_COULEUR[0]);
-        texte = texte.replaceAll("@E", TextesConsole.COULEUR_DEF.get("rouge"));
-        texte = texte.replaceAll("@i",convertTexte);
+        texte = texte.replaceAll(textesConsole.CODE_COULEUR, TextesConsole.CASE_COULEUR[i]);
+        texte = texte.replaceAll(textesConsole.CODE_DEFAUT, TextesConsole.CASE_COULEUR[0]);
+        texte = texte.replaceAll(textesConsole.CODE_ERREUR, TextesConsole.COULEUR_DEF.get("rouge"));
+        texte = texte.replaceAll(textesConsole.CODE_INDEX,convertTexte);
 
         // Affichage du texte
         if (saut) {

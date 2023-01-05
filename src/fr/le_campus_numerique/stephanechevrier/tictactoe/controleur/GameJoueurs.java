@@ -59,8 +59,8 @@ public class GameJoueurs {
         // Joueur vide index 0
         joueurs.add("JoueurVide");
 
-        // Boucle de saisie des 2 joueurs
-        for (int i=1; i<=2; i++) {
+        // Boucle de saisie des joueurs
+        for (int i=1; i<=nombreJoueurs; i++) {
             saisie = input.getString(textesConsole.MESSAGE_SAISIE_NOM1, i);
             joueurs.add(saisie);
         }

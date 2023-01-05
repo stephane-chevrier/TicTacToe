@@ -13,16 +13,16 @@ import java.util.Scanner;
 public class Input {
 
     /**
+     * initialisation Objet Console
+     */
+    private final Console console;
+
+    /**
      * constructeur Class Input
      */
     public Input() {
+        this.console = new Console();
     }
-
-    /**
-     * initialisation Objet Console
-     */
-    private final Console console = new Console();
-
     /**
      * Fonction de saisie d'une string avec un message de saisie
      * @param message
