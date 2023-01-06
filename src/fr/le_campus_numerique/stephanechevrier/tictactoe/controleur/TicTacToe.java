@@ -98,12 +98,12 @@ public class TicTacToe implements GameControleur {
         boolean retour = false;
 
         // boucle de test si le joueur i a gagné
-        for (int i=0; i<2; i++) {
+        for (int i=0; i<gameJoueurs.nombreJoueurs; i++) {
             alignementComplet[i]=TextesConsole.REPRESENTATION_JOUEUR[i+1].repeat(SIZE +1);
 
             for (String j : calcul) {
                 if (j.indexOf(alignementComplet[i])!=-1) {
-                    console.afficherEcran(textesConsole.MESSAGE_PARTIE_TERMINEE + textesConsole.MESSAGE_LE_JOUEUR + gameJoueurs.joueur.get(i + 1).name + textesConsole.MESSAGE_A_GAGNE, i + 1, true);
+                    console.afficherEcran(textesConsole.MESSAGE_PARTIE_TERMINEE + textesConsole.MESSAGE_LE_JOUEUR + gameJoueurs.joueur.get(i + 1).name + textesConsole.MESSAGE_A_GAGNE, i + 1, TextesConsole.saut);
                     retour = true;
                 }
             }
@@ -114,7 +114,7 @@ public class TicTacToe implements GameControleur {
 
         // Il n'y a plus de coups à jouer et il n'y a aucun vainqueur
         if ((nombreCoupsJoues==(SIZE +1)*(SIZE +1)) && (!retour)) {
-            console.afficherEcran(textesConsole.MESSAGE_PARTIE_TERMINEE + textesConsole.MESSAGE_EGALITE, 0, true);
+            console.afficherEcran(textesConsole.MESSAGE_PARTIE_TERMINEE + textesConsole.MESSAGE_EGALITE, TextesConsole.noIndex, TextesConsole.saut);
             retour = true;
         }
         return retour;
@@ -149,7 +149,7 @@ public class TicTacToe implements GameControleur {
             coup = gameJoueurs.saisieCoup(activePlayer, SIZE);
 
             // affichage du coup
-            console.afficherEcran(textesConsole.MESSAGE_COUP_JOUE1 + coup.get(0) + "-" + coup.get(1) + textesConsole.MESSAGE_COUP_JOUE2 + activePlayer.name, activePlayer.indexCouleur, true);
+            console.afficherEcran(textesConsole.MESSAGE_COUP_JOUE1 + coup.get(0) + "-" + coup.get(1) + textesConsole.MESSAGE_COUP_JOUE2 + activePlayer.name, activePlayer.indexCouleur, TextesConsole.saut);
 
             // créé le coup du joueur actif
             damier.setOwner(activePlayer,coup);

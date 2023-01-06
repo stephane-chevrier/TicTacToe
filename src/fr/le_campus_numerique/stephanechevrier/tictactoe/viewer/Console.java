@@ -116,30 +116,29 @@ public class Console {
         String LineMid = setMotifs(INTER_G, INTER, INTER_D, size);
 
         // Affichage de l'index de l'axe des x
-        afficherEcran(LineUp,0,true);
-        afficherEcran(LineIndex, 0, true);
-        afficherEcran(LineMid, 0, true);
+        afficherEcran(LineUp,TextesConsole.noIndex, TextesConsole.saut);
+        afficherEcran(LineIndex, TextesConsole.noIndex, TextesConsole.saut);
+        afficherEcran(LineMid, TextesConsole.noIndex, TextesConsole.saut);
 
         // boucle de balayage de lignes
         for (int i = 0; i <= size-1; i++) {
 
             // affichage du n° de ligne
-            afficherEcran(Console.COL + " " + index.get(i) + " ", 0, false);
+            afficherEcran(Console.COL + " " + index.get(i) + " ", TextesConsole.noIndex, TextesConsole.noSaut);
 
             // boucle de balayage des colonnes
             for (int j = 0; j <= size-1; j++) {
-                afficherEcran(cell[i][j].getRepresentation(COL), 0, false);
-//                afficherEcran(cellRepr[i][j], 0, false);
+                afficherEcran(cell[i][j].getRepresentation(COL), TextesConsole.noIndex, TextesConsole.noSaut);
             }
             // Affichage de la bordure de droite et de la ligne de séparation des lignes
-            afficherEcran(Console.COL, 0, true);
+            afficherEcran(Console.COL, TextesConsole.noIndex, TextesConsole.saut);
             if (i < size-1) {
-                afficherEcran(LineMid, 0 , true);
+                afficherEcran(LineMid, TextesConsole.noIndex, TextesConsole.saut);
             }
         }
         // affichage de la dernière ligne du damier
-        afficherEcran(LineDown, 0, true);
-        afficherEcran("", 0, true);
+        afficherEcran(LineDown, TextesConsole.noIndex, TextesConsole.saut);
+        afficherEcran("", TextesConsole.noIndex, TextesConsole.saut);
     }
 
     /**
@@ -147,10 +146,8 @@ public class Console {
      */
     public void displayEffacer() {
 
-        // boucle de 5 lignes vides avec couleur par défaut
-        for (int i=0; i<=5; i++) {
-            afficherEcran("@D", 0, true);
-        }
+        // boucle de 10 lignes vides avec couleur par défaut
+        afficherEcran("\n".repeat(10), TextesConsole.noIndex, TextesConsole.noSaut);
     }
 
     /**

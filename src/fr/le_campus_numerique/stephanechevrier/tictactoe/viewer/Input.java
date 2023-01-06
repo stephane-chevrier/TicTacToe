@@ -8,6 +8,8 @@ package fr.le_campus_numerique.stephanechevrier.tictactoe.viewer;
  * @author Stéphane CHEVRIER
  */
 
+import fr.le_campus_numerique.stephanechevrier.tictactoe.controleur.TextesConsole;
+
 import java.util.Scanner;
 
 public class Input {
@@ -35,7 +37,7 @@ public class Input {
         Scanner clavier = new Scanner(System.in);
 
         // affiche le message
-        console.afficherEcran(message, index, false);
+        console.afficherEcran(message, index, TextesConsole.noSaut);
 
         // retour de la chaine saisie
         return clavier.nextLine();

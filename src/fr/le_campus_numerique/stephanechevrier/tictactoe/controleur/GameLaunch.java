@@ -52,19 +52,19 @@ public class GameLaunch {
 
         // Initialisation de l'affichage
         console.displayEffacer();
-        console.afficherEcran(textesConsole.MESSAGE_BIENVENUE, 0, false);
+        console.afficherEcran(textesConsole.MESSAGE_BIENVENUE, TextesConsole.noIndex, TextesConsole.saut);
 
         // Boucle tant que Quit n'est pas saisie
         do {
 
             // Affichage des jeux possible
-            console.afficherEcran(textesConsole.MESSAGE_LISTE_DES_JEUX, 0, true);
+            console.afficherEcran(textesConsole.MESSAGE_LISTE_DES_JEUX, TextesConsole.noIndex, TextesConsole.saut);
             for (gameChoice g : gameChoice.values()) {
-                console.afficherEcran(g.toString(), 0, true);
+                console.afficherEcran(g.toString(), TextesConsole.noIndex, TextesConsole.saut);
             }
 
             // Saisie du nom du jeu
-            saisie = input.getString(textesConsole.MESSAGE_FAITES_VOTRE_CHOIX, 0);
+            saisie = input.getString(textesConsole.MESSAGE_FAITES_VOTRE_CHOIX, TextesConsole.noIndex);
 
             // Traitement exception si saisie n'est pas dans gameChoice
             try {
@@ -85,13 +85,13 @@ public class GameLaunch {
                     }
                     // Plateforme quittée
                     case QUIT -> {
-                        console.afficherEcran(textesConsole.MESSAGE_FIN, 0, true);
+                        console.afficherEcran(textesConsole.MESSAGE_FIN, TextesConsole.noIndex, TextesConsole.saut);
                         jeu = null;
                     }
                 }
                 // Traitement exception
             } catch (Exception e) {
-                console.afficherEcran(textesConsole.MESSAGE_SAISIE_INVALIDE, 0, true);
+                console.afficherEcran(textesConsole.MESSAGE_SAISIE_INVALIDE, TextesConsole.noIndex, TextesConsole.saut);
                 jeu = null;
             }
 

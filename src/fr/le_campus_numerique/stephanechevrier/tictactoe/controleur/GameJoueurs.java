@@ -107,8 +107,8 @@ public class GameJoueurs {
 
             // si resultat = true alors la case est occupée, et affiche un message si le joueur n'est pas random
             resultat = !damier.verifCaseLibre(coup);
-            if (resultat && !activePlayer.name.toLowerCase().startsWith("random")) {
-                console.afficherEcran(textesConsole.MESSAGE_CASE +coup.get(0)+"-"+coup.get(1)+ textesConsole.MESSAGE_CASE_OCCUPEE,0, true);
+            if (resultat && !activePlayer.name.toLowerCase().startsWith(Player.nomJoueurAleatoire)) {
+                console.afficherEcran(textesConsole.MESSAGE_CASE +coup.get(0)+"-"+coup.get(1)+ textesConsole.MESSAGE_CASE_OCCUPEE,TextesConsole.noIndex, TextesConsole.saut);
             }
 
             // fin boucle

@@ -43,6 +43,14 @@ public class TextesConsole {
             REPRESENTATION_JOUEUR = {" ","X","O"};
 
     /**
+     * initialisation des constantes utilisées par afficherEcran
+     */
+    public static final boolean
+            saut = true,
+            noSaut = false;
+    public static final int noIndex = 0;
+
+    /**
      * Initialisation des messages affichés à l'écran
      * @C:insère la couleur du joueur,  @D:insère la couleur par défaut, @i:insère l'index, @E insère la couleur des messages d'erreur
      */

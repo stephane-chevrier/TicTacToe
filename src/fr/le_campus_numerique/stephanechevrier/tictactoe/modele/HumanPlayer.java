@@ -63,7 +63,7 @@ public class HumanPlayer extends Player {
             return true;
         } else {
             // message format saisie incorrect
-            console.afficherEcran(TextesConsole.MESSAGE_SAISIE_INVALIDE, 0, true);
+            console.afficherEcran(TextesConsole.MESSAGE_SAISIE_INVALIDE, TextesConsole.noIndex, TextesConsole.saut);
             return false;
         }
     }
@@ -88,10 +88,11 @@ public class HumanPlayer extends Player {
      */
     public void checkExitProg(String saisie, Console console) {
         if (saisie.equalsIgnoreCase("exit")) {
-            console.afficherEcran(TextesConsole.MESSAGE_FIN,0,true);
+            console.afficherEcran(TextesConsole.MESSAGE_SORTIE, TextesConsole.noIndex, TextesConsole.saut);
+            console.afficherEcran(TextesConsole.MESSAGE_FIN,TextesConsole.noIndex, TextesConsole.saut);
             System.exit(0);
         }
-    }                // MIEUX DANS LE CONTROLEUR
+    }                // MIEUX DANS LE CONTROLEUR ?
 
     /**
      * Fonction de saisie de coordonnées + vérification + renvoie les coordonnées

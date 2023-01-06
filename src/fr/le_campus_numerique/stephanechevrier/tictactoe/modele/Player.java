@@ -20,6 +20,11 @@ import java.util.ArrayList;
 public abstract class Player {
 
     /**
+     * initialisation des constantes
+     */
+    public static final String nomJoueurAleatoire = "random";
+
+    /**
      * Initialisation variables d'instance
      */
     public int indexCouleur;
