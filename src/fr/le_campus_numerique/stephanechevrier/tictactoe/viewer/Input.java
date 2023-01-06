@@ -37,7 +37,7 @@ public class Input {
         Scanner clavier = new Scanner(System.in);
 
         // affiche le message
-        console.afficherEcran(message, index, TextesConsole.noSaut);
+        console.afficherEcran(message, index, TextesConsole.NO_SAUT);
 
         // retour de la chaine saisie
         return clavier.nextLine();

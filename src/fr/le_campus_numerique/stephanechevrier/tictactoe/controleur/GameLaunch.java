@@ -11,19 +11,25 @@ package fr.le_campus_numerique.stephanechevrier.tictactoe.controleur;
 
 import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.*;
 
-import java.util.ArrayList;
-
 public class GameLaunch {
 
     /**
      * définition des jeux possibles
      */
-    enum gameChoice {
+    private enum gameChoice {
+        SAUVEGARDE,
         TICTACTOE,
         GOMOKU,
         PUISSANCE4,
         QUIT
+
     }
+
+    /**
+     * initialisation des variables locales
+     */
+    private static final boolean partieNouvelle = true;
+    private static final boolean partieSauvegardee = false;
 
     /**
      * initialisation des objets
@@ -49,28 +55,35 @@ public class GameLaunch {
         // initialisation des variables locales
         String saisie;
         GameControleur jeu = null;
+        boolean nouvellePartie = partieNouvelle;
 
         // Initialisation de l'affichage
         console.displayEffacer();
-        console.afficherEcran(textesConsole.MESSAGE_BIENVENUE, TextesConsole.noIndex, TextesConsole.saut);
+        console.afficherEcran(textesConsole.MESSAGE_BIENVENUE, TextesConsole.NO_INDEX, TextesConsole.SAUT);
 
-        // Boucle tant que Quit n'est pas saisie
+        // Boucle tant que Quit n'est pas saisi
         do {
 
             // Affichage des jeux possible
-            console.afficherEcran(textesConsole.MESSAGE_LISTE_DES_JEUX, TextesConsole.noIndex, TextesConsole.saut);
+            console.sautLigne();
+            console.afficherEcran(textesConsole.MESSAGE_LISTE_DES_JEUX, TextesConsole.NO_INDEX, TextesConsole.SAUT);
             for (gameChoice g : gameChoice.values()) {
-                console.afficherEcran(g.toString(), TextesConsole.noIndex, TextesConsole.saut);
+                console.afficherEcran(g.toString(), TextesConsole.NO_INDEX, TextesConsole.SAUT);
             }
 
             // Saisie du nom du jeu
-            saisie = input.getString(textesConsole.MESSAGE_FAITES_VOTRE_CHOIX, TextesConsole.noIndex);
+            saisie = input.getString(textesConsole.MESSAGE_FAITES_VOTRE_CHOIX, TextesConsole.NO_INDEX);
 
             // Traitement exception si saisie n'est pas dans gameChoice
             try {
 
                 // Selection du jeu
                 switch (gameChoice.valueOf(saisie.toUpperCase())) {
+
+                    // partie sauvegardée
+                    case SAUVEGARDE -> {
+                        nouvellePartie = partieSauvegardee;
+                    }
 
                     // Jeu TicTacToe
                     case TICTACTOE -> {
@@ -82,22 +95,24 @@ public class GameLaunch {
                     }
                     // Jeu Puissance4
                     case PUISSANCE4 -> {
+                        console.afficherEcran(textesConsole.MESSAGE_PUISSANCE4, TextesConsole.NO_INDEX, TextesConsole.SAUT);
+                        jeu = null;
                     }
                     // Plateforme quittée
                     case QUIT -> {
-                        console.afficherEcran(textesConsole.MESSAGE_FIN, TextesConsole.noIndex, TextesConsole.saut);
+                        console.afficherEcran(textesConsole.MESSAGE_FIN, TextesConsole.NO_INDEX, TextesConsole.SAUT);
                         jeu = null;
                     }
                 }
                 // Traitement exception
             } catch (Exception e) {
-                console.afficherEcran(textesConsole.MESSAGE_SAISIE_INVALIDE, TextesConsole.noIndex, TextesConsole.saut);
+                console.afficherEcran(textesConsole.MESSAGE_SAISIE_INVALIDE, TextesConsole.NO_INDEX, TextesConsole.SAUT);
                 jeu = null;
             }
 
             // lancement du jeu sélectionné
             if (jeu != null) {
-                jeu.play();
+                jeu.play(jeu,nouvellePartie);
             }
         }
         // Fin boucle de sélection du jeu ou QUIT

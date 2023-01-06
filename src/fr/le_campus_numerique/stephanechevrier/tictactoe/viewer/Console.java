@@ -107,38 +107,35 @@ public class Console {
         int size = cell.length;
         String LineIndex = setIndex(size, COL);
 
-        // effacement du terminal
-        //displayEffacer();
-
         // création des 3 types de lignes d'affichage
         String LineUp = setMotifs(COIN_HG, INTER_H, COIN_HD,size);
         String LineDown = setMotifs(COIN_BG, INTER_B, COIN_BD,size);
         String LineMid = setMotifs(INTER_G, INTER, INTER_D, size);
 
         // Affichage de l'index de l'axe des x
-        afficherEcran(LineUp,TextesConsole.noIndex, TextesConsole.saut);
-        afficherEcran(LineIndex, TextesConsole.noIndex, TextesConsole.saut);
-        afficherEcran(LineMid, TextesConsole.noIndex, TextesConsole.saut);
+        afficherEcran(LineUp,TextesConsole.NO_INDEX, TextesConsole.SAUT);
+        afficherEcran(LineIndex, TextesConsole.NO_INDEX, TextesConsole.SAUT);
+        afficherEcran(LineMid, TextesConsole.NO_INDEX, TextesConsole.SAUT);
 
         // boucle de balayage de lignes
         for (int i = 0; i <= size-1; i++) {
 
             // affichage du n° de ligne
-            afficherEcran(Console.COL + " " + index.get(i) + " ", TextesConsole.noIndex, TextesConsole.noSaut);
+            afficherEcran(Console.COL + " " + index.get(i) + " ", TextesConsole.NO_INDEX, TextesConsole.NO_SAUT);
 
             // boucle de balayage des colonnes
             for (int j = 0; j <= size-1; j++) {
-                afficherEcran(cell[i][j].getRepresentation(COL), TextesConsole.noIndex, TextesConsole.noSaut);
+                afficherEcran(cell[i][j].getRepresentation(COL), TextesConsole.NO_INDEX, TextesConsole.NO_SAUT);
             }
             // Affichage de la bordure de droite et de la ligne de séparation des lignes
-            afficherEcran(Console.COL, TextesConsole.noIndex, TextesConsole.saut);
+            afficherEcran(Console.COL, TextesConsole.NO_INDEX, TextesConsole.SAUT);
             if (i < size-1) {
-                afficherEcran(LineMid, TextesConsole.noIndex, TextesConsole.saut);
+                afficherEcran(LineMid, TextesConsole.NO_INDEX, TextesConsole.SAUT);
             }
         }
         // affichage de la dernière ligne du damier
-        afficherEcran(LineDown, TextesConsole.noIndex, TextesConsole.saut);
-        afficherEcran("", TextesConsole.noIndex, TextesConsole.saut);
+        afficherEcran(LineDown, TextesConsole.NO_INDEX, TextesConsole.SAUT);
+        sautLigne();
     }
 
     /**
@@ -147,7 +144,7 @@ public class Console {
     public void displayEffacer() {
 
         // boucle de 10 lignes vides avec couleur par défaut
-        afficherEcran("\n".repeat(10), TextesConsole.noIndex, TextesConsole.noSaut);
+        afficherEcran("\n".repeat(10), TextesConsole.NO_INDEX, TextesConsole.NO_SAUT);
     }
 
     /**
@@ -177,4 +174,12 @@ public class Console {
             System.out.print(texte);
         }
     }
+
+    /**
+     * méthode d'affichage d'un saut de ligne vide
+     */
+    public void sautLigne() {
+        afficherEcran("",TextesConsole.NO_INDEX, TextesConsole.SAUT);
+    }
+
 }

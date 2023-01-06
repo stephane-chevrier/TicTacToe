@@ -63,7 +63,7 @@ public class HumanPlayer extends Player {
             return true;
         } else {
             // message format saisie incorrect
-            console.afficherEcran(TextesConsole.MESSAGE_SAISIE_INVALIDE, TextesConsole.noIndex, TextesConsole.saut);
+            console.afficherEcran(TextesConsole.MESSAGE_SAISIE_INVALIDE, TextesConsole.NO_INDEX, TextesConsole.SAUT);
             return false;
         }
     }
@@ -88,8 +88,8 @@ public class HumanPlayer extends Player {
      */
     public void checkExitProg(String saisie, Console console) {
         if (saisie.equalsIgnoreCase("exit")) {
-            console.afficherEcran(TextesConsole.MESSAGE_SORTIE, TextesConsole.noIndex, TextesConsole.saut);
-            console.afficherEcran(TextesConsole.MESSAGE_FIN,TextesConsole.noIndex, TextesConsole.saut);
+            console.afficherEcran(TextesConsole.MESSAGE_SORTIE, TextesConsole.NO_INDEX, TextesConsole.SAUT);
+            console.afficherEcran(TextesConsole.MESSAGE_FIN,TextesConsole.NO_INDEX, TextesConsole.SAUT);
             System.exit(0);
         }
     }                // MIEUX DANS LE CONTROLEUR ?

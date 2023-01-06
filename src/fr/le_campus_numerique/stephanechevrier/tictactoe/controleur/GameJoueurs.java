@@ -14,7 +14,7 @@ import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.*;
 
 import java.util.ArrayList;
 
-public class GameJoueurs {
+public class GameJoueurs implements java.io.Serializable {
 
     /**
      * initialisation du nombre de joueurs
@@ -65,6 +65,7 @@ public class GameJoueurs {
             joueurs.add(saisie);
         }
         // retour de la ArrayList des 3 joueurs (vide, joueur n°1, joueur n°2)
+        console.sautLigne();
         return joueurs;
     }
 
@@ -108,7 +109,7 @@ public class GameJoueurs {
             // si resultat = true alors la case est occupée, et affiche un message si le joueur n'est pas random
             resultat = !damier.verifCaseLibre(coup);
             if (resultat && !activePlayer.name.toLowerCase().startsWith(Player.nomJoueurAleatoire)) {
-                console.afficherEcran(textesConsole.MESSAGE_CASE +coup.get(0)+"-"+coup.get(1)+ textesConsole.MESSAGE_CASE_OCCUPEE,TextesConsole.noIndex, TextesConsole.saut);
+                console.afficherEcran(textesConsole.MESSAGE_CASE +coup.get(0)+"-"+coup.get(1)+ textesConsole.MESSAGE_CASE_OCCUPEE,TextesConsole.NO_INDEX, TextesConsole.SAUT);
             }
 
             // fin boucle

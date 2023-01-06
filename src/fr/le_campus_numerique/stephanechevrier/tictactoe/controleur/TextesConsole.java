@@ -46,9 +46,9 @@ public class TextesConsole {
      * initialisation des constantes utilisées par afficherEcran
      */
     public static final boolean
-            saut = true,
-            noSaut = false;
-    public static final int noIndex = 0;
+            SAUT = true,
+            NO_SAUT = false;
+    public static final int NO_INDEX = 0;
 
     /**
      * Initialisation des messages affichés à l'écran
@@ -75,5 +75,6 @@ public class TextesConsole {
             MESSAGE_BIENVENUE = "Bienvenue sur ma plateforme de jeux, ",
             MESSAGE_LISTE_DES_JEUX = "liste des jeux possibles :",
             MESSAGE_FAITES_VOTRE_CHOIX = "Choisissez votre jeu (quit pour quitter la plateforme) : ",
-            MESSAGE_FIN = "Merci d'être venu, à bientôt !!!";
+            MESSAGE_FIN = "Merci d'être venu, à bientôt !!!",
+            MESSAGE_PUISSANCE4 = CODE_ERREUR+"Le jeu Puissance4 n'existe pas encore, veuillez faire un autre choix."+CODE_DEFAUT;
 }
