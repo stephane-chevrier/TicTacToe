@@ -1,5 +1,12 @@
 package fr.le_campus_numerique.stephanechevrier.tictactoe.modele;
 
+// concerne que des constantes --> acceptable
+import fr.le_campus_numerique.stephanechevrier.tictactoe.controleur.TextesConsole;
+// concerne HumanPlayer qui utilise l'écran et le clavier
+import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+
 /**
  * Nom             Player, Class abstract
  * Description     Modèle jeu TicTacToe (MVC)
@@ -8,16 +15,7 @@ package fr.le_campus_numerique.stephanechevrier.tictactoe.modele;
  * Date            12 décembre 2022
  * @author Stéphane CHEVRIER
  */
-
-// concerne que des constantes --> acceptable
-import fr.le_campus_numerique.stephanechevrier.tictactoe.controleur.TextesConsole;
-// concerne HumanPlayer qui utilise l'écran et le clavier
-import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.*;
-
-
-import java.util.ArrayList;
-
-public abstract class Player {
+public abstract class Player implements Serializable {
 
     /**
      * initialisation des constantes

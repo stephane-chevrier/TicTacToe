@@ -1,5 +1,9 @@
 package fr.le_campus_numerique.stephanechevrier.tictactoe.controleur;
 
+import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.*;
+import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.Console;
+import java.io.Serializable;
+
 /**
  * Nom             Gomoku
  * Description     Contrôleur jeu TicTacToe (MVC)
@@ -8,16 +12,11 @@ package fr.le_campus_numerique.stephanechevrier.tictactoe.controleur;
  * @author Stéphane CHEVRIER
  */
 
-import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.*;
-import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.Console;
-
-public class Gomoku extends GameControleur {
+public class Gomoku extends GameControleur implements Serializable {
 
     /**
-     * initialisation variables locales
+     * Constructeur
      */
-
-
     public Gomoku() {
         this.size = 14;      // =n défini un plateau de n+1 * n+1 cellules pour le jeu TicTacToe
                              // ATTENTION n doit être supérieur ou égal à 4
@@ -48,7 +47,7 @@ public class Gomoku extends GameControleur {
             calcul[i] = "";
         }
 
-        // Double boucle de calcul des sommes (size lignes, size colonnes, 18 diagonales)
+        // Double boucle de calcul des sommes (size lignes, size colonnes, size+1-alignementGagnant diagonales)
         for (int i = 0; i <= size; i++) {
 
             // boucle de calcul des diagonales

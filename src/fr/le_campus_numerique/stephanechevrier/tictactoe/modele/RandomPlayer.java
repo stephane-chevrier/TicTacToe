@@ -1,5 +1,10 @@
 package fr.le_campus_numerique.stephanechevrier.tictactoe.modele;
 
+import fr.le_campus_numerique.stephanechevrier.tictactoe.controleur.TextesConsole;
+import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.*;
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  * Nom             RandomPlayer, extends Player
  * Description     Modèle jeu TicTacToe (MVC)
@@ -8,11 +13,6 @@ package fr.le_campus_numerique.stephanechevrier.tictactoe.modele;
  * Date            19 décembre 2022
  * @author Stéphane CHEVRIER
  */
-
-import fr.le_campus_numerique.stephanechevrier.tictactoe.controleur.TextesConsole;
-import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.*;
-import java.util.ArrayList;
-import java.util.Random;
 
 public class RandomPlayer extends Player {
 

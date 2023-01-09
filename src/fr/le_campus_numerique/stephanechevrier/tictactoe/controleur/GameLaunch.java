@@ -1,5 +1,8 @@
 package fr.le_campus_numerique.stephanechevrier.tictactoe.controleur;
 
+import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.Console;
+import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.Input;
+
 /**
  * Nom             GameLaunch
  * Description     Contrôleur jeu TicTacToe (MVC)
@@ -8,8 +11,6 @@ package fr.le_campus_numerique.stephanechevrier.tictactoe.controleur;
  * Date            12 décembre 2022
  * @author Stéphane CHEVRIER
  */
-
-import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.*;
 
 public class GameLaunch {
 
@@ -22,7 +23,6 @@ public class GameLaunch {
         GOMOKU,
         PUISSANCE4,
         QUIT
-
     }
 
     /**
@@ -37,6 +37,8 @@ public class GameLaunch {
     Console console;
     TextesConsole textesConsole;
     Input input;
+    Persistence persistence;
+
 
     /**
      * Constructeur de la Class GameLaunch
@@ -45,6 +47,7 @@ public class GameLaunch {
         this.console = new Console();
         this.textesConsole = new TextesConsole();
         this.input = new Input();
+        this.persistence = new GameSerialization();
     }
 
     /**
@@ -83,6 +86,7 @@ public class GameLaunch {
                     // partie sauvegardée
                     case SAUVEGARDE -> {
                         nouvellePartie = partieSauvegardee;
+                        jeu = (GameControleur) persistence.restaurer(GameSerialization.fichierSauvegardeGameControleur);
                     }
 
                     // Jeu TicTacToe
@@ -104,7 +108,7 @@ public class GameLaunch {
                         jeu = null;
                     }
                 }
-                // Traitement exception
+                // Traitement exception saisie non valide
             } catch (Exception e) {
                 console.afficherEcran(textesConsole.MESSAGE_SAISIE_INVALIDE, TextesConsole.NO_INDEX, TextesConsole.SAUT);
                 jeu = null;
@@ -113,6 +117,8 @@ public class GameLaunch {
             // lancement du jeu sélectionné
             if (jeu != null) {
                 jeu.play(jeu,nouvellePartie);
+                jeu = null;
+                nouvellePartie = partieNouvelle;
             }
         }
         // Fin boucle de sélection du jeu ou QUIT

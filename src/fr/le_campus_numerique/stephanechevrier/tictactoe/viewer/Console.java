@@ -1,5 +1,11 @@
 package fr.le_campus_numerique.stephanechevrier.tictactoe.viewer;
 
+import fr.le_campus_numerique.stephanechevrier.tictactoe.controleur.TextesConsole;
+import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.Cell;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Nom:            Viewer
  * Description :   Viewer jeu TicTacToe (MVC)
@@ -8,12 +14,7 @@ package fr.le_campus_numerique.stephanechevrier.tictactoe.viewer;
  * @author Stéphane CHEVRIER
  */
 
-import fr.le_campus_numerique.stephanechevrier.tictactoe.controleur.TextesConsole;
-import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.Cell;
-import java.util.HashMap;
-import java.util.Map;
-
-public class Console {
+public class Console implements Serializable {
 
     /**
      * initialisation objet TextesConsole

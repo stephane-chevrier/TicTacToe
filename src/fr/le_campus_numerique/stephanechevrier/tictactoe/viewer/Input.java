@@ -1,5 +1,9 @@
 package fr.le_campus_numerique.stephanechevrier.tictactoe.viewer;
 
+import fr.le_campus_numerique.stephanechevrier.tictactoe.controleur.TextesConsole;
+import java.io.Serializable;
+import java.util.Scanner;
+
 /**
  * Nom:            Input
  * Description :   Class de saisie du jeu TicTacToe (MVC)
@@ -7,12 +11,7 @@ package fr.le_campus_numerique.stephanechevrier.tictactoe.viewer;
  * Date :          24 décembre 2022
  * @author Stéphane CHEVRIER
  */
-
-import fr.le_campus_numerique.stephanechevrier.tictactoe.controleur.TextesConsole;
-
-import java.util.Scanner;
-
-public class Input {
+public class Input implements Serializable {
 
     /**
      * initialisation Objet Console

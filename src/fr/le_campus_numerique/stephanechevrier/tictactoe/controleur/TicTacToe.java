@@ -1,5 +1,9 @@
 package fr.le_campus_numerique.stephanechevrier.tictactoe.controleur;
 
+import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.*;
+import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.Console;
+import java.io.Serializable;
+
 /**
  * Nom             TicTacToe
  * Description     Contrôleur jeu TicTacToe (MVC)
@@ -8,11 +12,11 @@ package fr.le_campus_numerique.stephanechevrier.tictactoe.controleur;
  * @author Stéphane CHEVRIER
  */
 
-import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.*;
-import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.Console;
+public class TicTacToe extends GameControleur implements Serializable {
 
-public class TicTacToe extends GameControleur {
-
+    /**
+     * constructeur
+     */
     public TicTacToe() {
         this.size = 2;      /* =n défini un plateau de n+1 * n+1 cellules pour le jeu TicTacToe */
         this.nbreAlignements = (size + 1) * 3;   // on aura besoin de 3 blocs : lignes, colonnes, diagonales
@@ -42,8 +46,8 @@ public class TicTacToe extends GameControleur {
         }
         // Double boucle de calcul des sommes (size lignes, size colonnes, 2 diagonales)
         for (int i = 0; i <= size; i++) {
-            calcul[(size *2+2)+1] += plateau[i][i].getRepresentationBrut();      // somme de la diagonale 0.0+1.1+2.2+... dans index size*2 + 1
-            calcul[(size *2+2)+2] += plateau[i][size - i].getRepresentationBrut(); // somme de la diagonale 0.size+1.1+... dans index size*2 + 2
+            calcul[(size*2+2)+1] += plateau[i][i].getRepresentationBrut();      // somme de la diagonale 0.0+1.1+2.2+... dans index size*2 + 1
+            calcul[(size*2+2)+2] += plateau[i][size - i].getRepresentationBrut(); // somme de la diagonale 0.size+1.1+... dans index size*2 + 2
             for (int j = 0; j <= size; j++) {
                 calcul[j] += plateau[i][j].getRepresentationBrut();   // somme des lignes 0-1-2 dans index 0-1-2
                 calcul[j + size + 1] += plateau[j][i].getRepresentationBrut(); // somme des colonnes 0-1-2 dans index 3-4-5

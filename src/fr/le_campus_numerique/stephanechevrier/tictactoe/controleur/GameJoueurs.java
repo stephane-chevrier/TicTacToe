@@ -1,5 +1,9 @@
 package fr.le_campus_numerique.stephanechevrier.tictactoe.controleur;
 
+import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.*;
+import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.*;
+import java.util.ArrayList;
+
 /**
  * Nom             GameJoueurs
  * Description     Contrôleur jeu TicTacToe (MVC)
@@ -8,11 +12,6 @@ package fr.le_campus_numerique.stephanechevrier.tictactoe.controleur;
  * Date            3 janvier 2023
  * @author Stéphane CHEVRIER
  */
-
-import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.*;
-import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.*;
-
-import java.util.ArrayList;
 
 public class GameJoueurs implements java.io.Serializable {
 

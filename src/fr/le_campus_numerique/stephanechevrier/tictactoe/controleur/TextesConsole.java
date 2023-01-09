@@ -1,5 +1,8 @@
 package fr.le_campus_numerique.stephanechevrier.tictactoe.controleur;
 
+import java.io.Serializable;
+import java.util.Map;
+
 /**
  * Nom:            TextesEcran
  * Description :   Controleur jeu TicTacToe (MVC)
@@ -9,9 +12,7 @@ package fr.le_campus_numerique.stephanechevrier.tictactoe.controleur;
  * @author Stéphane CHEVRIER
  */
 
-import java.util.Map;
-
-public class TextesConsole {
+public class TextesConsole implements Serializable {
 
     /**
      * définition des constantes pour les cases : couleur, valeur, représentation

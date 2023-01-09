@@ -1,8 +1,9 @@
 package fr.le_campus_numerique.stephanechevrier.tictactoe.controleur;
 
+
 import fr.le_campus_numerique.stephanechevrier.tictactoe.modele.*;
 import fr.le_campus_numerique.stephanechevrier.tictactoe.viewer.Console;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  * @author Stéphane CHEVRIER
  */
 
-public abstract class GameControleur {
+public abstract class GameControleur implements Serializable {
 
     /**
      * initialisation de la taille du plateau
@@ -105,13 +106,14 @@ public abstract class GameControleur {
             // définition aléatoire du 1er joueur à jouer
             activePlayer = gameJoueurs.joueur.get((int) Math.round((Math.random() + 1)));
 
-            //Afichage du plateau
-            console.display(damier.getPlateau());
-
         } else {
 
-            // récupération de la dernière partie sauvegardée
+            // récupération de la dernière sauvegarde
+            activePlayer = (Player) persistence.restaurer(GameSerialization.fichierSauvegardeActivePlayer);
         }
+
+        //Afichage du plateau
+        console.display(damier.getPlateau());
 
         // boucle d'enchainement des coups
         while (!isOver(jeu)) {
@@ -126,7 +128,8 @@ public abstract class GameControleur {
             damier.setOwner(activePlayer,coup);
 
             // sauvegarde l'état du jeu
-            persistence.sauvegarder(jeu,activePlayer);
+            persistence.sauvegarder(jeu,GameSerialization.fichierSauvegardeGameControleur);
+            persistence.sauvegarder(activePlayer,GameSerialization.fichierSauvegardeActivePlayer);
 
             //Afichage du plateau
             console.display(damier.getPlateau());
@@ -136,7 +139,6 @@ public abstract class GameControleur {
 
             // répétition de la boucle tant que la partie n'est pas finie
         }
-
     }
 
     /**

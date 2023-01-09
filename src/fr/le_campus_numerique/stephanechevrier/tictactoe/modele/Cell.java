@@ -1,5 +1,8 @@
 package fr.le_campus_numerique.stephanechevrier.tictactoe.modele;
 
+import fr.le_campus_numerique.stephanechevrier.tictactoe.controleur.TextesConsole;
+import java.io.Serializable;
+
 /**
  * Nom             Cell
  * Description     Modèle jeu TicTacToe (MVC)
@@ -9,9 +12,7 @@ package fr.le_campus_numerique.stephanechevrier.tictactoe.modele;
  * @author Stéphane CHEVRIER
  */
 
-import fr.le_campus_numerique.stephanechevrier.tictactoe.controleur.TextesConsole;
-
-public class Cell {
+public class Cell implements Serializable {
 
     /**
      * création variable d'instance de Cell

@@ -1,5 +1,9 @@
 package fr.le_campus_numerique.stephanechevrier.tictactoe.modele;
 
+import fr.le_campus_numerique.stephanechevrier.tictactoe.controleur.TextesConsole;
+import java.io.Serializable;
+import java.util.ArrayList;
+
 /**
  * Nom             Damier
  * Description     Modele jeu TicTacToe (MVC)
@@ -9,11 +13,7 @@ package fr.le_campus_numerique.stephanechevrier.tictactoe.modele;
  * @author Stéphane CHEVRIER
  */
 
-import fr.le_campus_numerique.stephanechevrier.tictactoe.controleur.TextesConsole;
-
-import java.util.ArrayList;
-
-public class Damier {
+public class Damier implements Serializable {
 
     /**
      * initialisation du damier (tableau 2 dimensions de l'objet cellule)
